@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/api/annotations.proto";
+
+option go_package = "grpc/pb/v1;pb";
+
+message CreateUserRequest {
+    map<string, string> headers = 1;
+    message DataUser {
+        string email = 1;
+        string password = 2;
+        string name = 3;
+    }
+    DataUser body = 2;
+}
+
+message CreateUserResponse {
+    uint32 code = 1;
+    string responseCode = 2;
+    string responseDesc = 3;
+    message ResponseData {
+        string id = 1;
+    };
+    ResponseData responseData = 4;
+}
+
+message GetListUserRequest {
+    map<string, string> headers = 1;
+    message Data {
+        message Query {
+            int32 limit = 1;
+            int32 page = 2;
+            string sort = 3;
+            string field = 4;
+        }
+        message Where {
+            map<string, string> filter = 1;
+        }
+        Query query = 1;
+        Where where = 2;
+    };
+    Data body = 2;
+}
+
+message GetListUserResponse{
+    uint32 code = 1;
+    string responseCode = 2;
+    string responseDesc = 3;
+    message ResponseData {
+        int32 page = 1;
+        int32 limit = 2;
+        int32 total = 3;
+        int32 totalPage = 4;
+        message ListUser {
+            string id = 1;
+            string email = 2;
+            string name = 3;
+        }
+        repeated ListUser listUser = 5;
+    };
+    ResponseData responseData = 4;
+}
+
+message UpdateUserRequest {
+    map<string, string> headers = 1;
+    message DataUser {
+        string id = 1;
+        string email = 2;
+        string name = 3;
+        string password = 4;
+        string newPassword = 5;
+    }
+    DataUser body = 2;
+}
+
+message UpdateUserResponse{
+    uint32 code = 1;
+    string responseCode = 2;
+    string responseDesc = 3;
+    message ResponseData {
+        string id = 1;
+    }
+    ResponseData responseData = 4;
+}
+
+message DeleteUserRequest {
+    map<string, string> headers = 1;
+    message DataUser {
+        string id = 1;
+    }
+    DataUser body = 2;
+}
+
+message DeleteUserResponse{
+    uint32 code = 1;
+    string responseCode = 2;
+    string responseDesc = 3;
+    message ResponseData {
+        string id = 1;
+    }
+    ResponseData responseData = 4;
+}
+
+service User {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/create-user"
+            body: "*"
+        };
+    }
+
+    rpc GetListUser(GetListUserRequest) returns (GetListUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/get-list-user"
+            body: "*"
+        };
+    }
+
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/update-user"
+            body: "*"
+        };
+    }
+
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/delete-user"
+            body: "*"
+        };
+    }
+}

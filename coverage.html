@@ -1,0 +1,3626 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>api: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">grpc/api/handler.go (0.0%)</option>
+				
+				<option value="file1">grpc/api/user.go (18.8%)</option>
+				
+				<option value="file2">grpc/cmd/grpc.go (0.0%)</option>
+				
+				<option value="file3">grpc/internal/mocks/UserRepository.go (11.1%)</option>
+				
+				<option value="file4">grpc/internal/repository/user.go (0.0%)</option>
+				
+				<option value="file5">grpc/internal/usecase/user.go (23.1%)</option>
+				
+				<option value="file6">grpc/main.go (0.0%)</option>
+				
+				<option value="file7">grpc/middleware/custom_matcher.go (0.0%)</option>
+				
+				<option value="file8">grpc/pb/v1/user.pb.go (3.9%)</option>
+				
+				<option value="file9">grpc/pb/v1/user.pb.gw.go (0.0%)</option>
+				
+				<option value="file10">grpc/pb/v1/user_grpc.pb.go (0.0%)</option>
+				
+				<option value="file11">grpc/pkg/database/database.go (0.0%)</option>
+				
+				<option value="file12">grpc/pkg/environment.go (0.0%)</option>
+				
+				<option value="file13">grpc/pkg/logger/logger.go (0.0%)</option>
+				
+				<option value="file14">grpc/pkg/util/filter.go (0.0%)</option>
+				
+				<option value="file15">grpc/pkg/util/password.go (60.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">package api
+
+import (
+        "grpc/internal/usecase"
+
+        "google.golang.org/grpc"
+)
+
+type Handler struct {
+        Grpc        *grpc.Server
+        UserService usecase.UserService
+}
+
+func CreateHandler(
+        grpc *grpc.Server,
+        user usecase.UserService,
+) *Handler <span class="cov0" title="0">{
+        return &amp;Handler{
+                grpc,
+                user,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">package api
+
+import (
+        "context"
+        "grpc/internal/constant"
+        pb "grpc/pb/v1"
+        "net/http"
+)
+
+func (s Handler) CreateUser(ctx context.Context, request *pb.CreateUserRequest) (*pb.CreateUserResponse, error) <span class="cov8" title="1">{
+        user, err := s.UserService.CreateUser(ctx, request)
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.CreateUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov8" title="1">return user, nil</span>
+}
+
+func (s Handler) GetListUser(ctx context.Context, request *pb.GetListUserRequest) (*pb.GetListUserResponse, error) <span class="cov0" title="0">{
+        user, err := s.UserService.GetListUser(ctx, request)
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.GetListUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov0" title="0">return user, nil</span>
+}
+
+func (s Handler) UpdateUser(ctx context.Context, request *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) <span class="cov0" title="0">{
+        user, err := s.UserService.UpdateUser(ctx, request)
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.UpdateUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov0" title="0">return user, nil</span>
+}
+
+func (s Handler) DeleteUser(ctx context.Context, request *pb.DeleteUserRequest) (*pb.DeleteUserResponse, error) <span class="cov0" title="0">{
+        user, err := s.UserService.DeleteUser(ctx, request)
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.DeleteUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov0" title="0">return user, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package cmd
+
+import (
+        "context"
+        "encoding/json"
+        "fmt"
+        "io"
+        "log"
+        "net"
+        "net/http"
+        "net/http/httptest"
+        "os"
+        "os/signal"
+        "strings"
+        "syscall"
+
+        domain "grpc/api"
+        "grpc/internal/constant"
+        repository "grpc/internal/repository"
+        usecase "grpc/internal/usecase"
+        middleware "grpc/middleware"
+
+        pb "grpc/pb/v1"
+        pkg "grpc/pkg"
+        "grpc/pkg/database"
+        "grpc/pkg/logger"
+        "grpc/pkg/model"
+
+        grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+        grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
+        "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+        "github.com/rs/cors"
+        "go.elastic.co/apm/module/apmgrpc/v2"
+        "go.elastic.co/apm/module/apmhttp/v2"
+        "golang.org/x/sync/errgroup"
+        "google.golang.org/grpc"
+)
+
+func Init() <span class="cov0" title="0">{
+        ctx := context.Background()
+        _, err := database.InitGorm(ctx)
+        if err != nil </span><span class="cov0" title="0">{
+                panic(err)</span>
+        }
+        <span class="cov0" title="0">g, _ := errgroup.WithContext(ctx)
+        var servers []*http.Server
+        g.Go(func() error </span><span class="cov0" title="0">{
+                signalChannel := make(chan os.Signal, 1)
+                signal.Notify(signalChannel, os.Interrupt, syscall.SIGTERM)
+
+                select </span>{
+                case sig := &lt;-signalChannel:<span class="cov0" title="0">
+                        log.Printf("received signal: %s\n", sig)
+                        for i, s := range servers </span><span class="cov0" title="0">{
+                                if err := s.Shutdown(ctx); err != nil </span><span class="cov0" title="0">{
+                                        if err == nil </span><span class="cov0" title="0">{
+                                                log.Printf("error shutting down server %d: %v", i, err)
+                                                panic(err)</span>
+                                        }
+                                }
+                        }
+                        <span class="cov0" title="0">os.Exit(1)</span>
+                }
+                <span class="cov0" title="0">return nil</span>
+        })
+
+        <span class="cov0" title="0">g.Go(func() error </span><span class="cov0" title="0">{ return NewGrpcServer() }</span>)
+        <span class="cov0" title="0">g.Go(func() error </span><span class="cov0" title="0">{ return NewHttpServer() }</span>)
+        <span class="cov0" title="0">err = g.Wait()
+        if err != nil </span><span class="cov0" title="0">{
+                panic(err)</span>
+        }
+        <span class="cov0" title="0">return</span>
+}
+
+func NewGrpcServer() error <span class="cov0" title="0">{
+        logger.Configure()
+        port, err := net.Listen("tcp", ":"+pkg.Getenv("GRPC_PORT"))
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatalln("Failed to listen:", err)
+        }</span>
+
+        // REPOSITORY
+        <span class="cov0" title="0">userRepository := repository.NewUserRepository()
+
+        // USECASE
+        userUseCase := usecase.NewUserService().SetUserRepository(userRepository)
+
+        s := grpc.NewServer(grpc.MaxMsgSize(constant.MAX_SIZE_GRPC), grpc.MaxRecvMsgSize(constant.MAX_SIZE_GRPC), grpc.MaxSendMsgSize(constant.MAX_SIZE_GRPC),
+                grpc_middleware.WithUnaryServerChain(
+                        grpc_ctxtags.UnaryServerInterceptor(grpc_ctxtags.WithFieldExtractor(grpc_ctxtags.CodeGenRequestFieldExtractor)),
+                ),
+                grpc_middleware.WithStreamServerChain(
+                        grpc_ctxtags.StreamServerInterceptor(grpc_ctxtags.WithFieldExtractor(grpc_ctxtags.CodeGenRequestFieldExtractor)),
+                ),
+                grpc.UnaryInterceptor(apmgrpc.NewUnaryServerInterceptor(apmgrpc.WithRecovery())),
+                grpc.StreamInterceptor(apmgrpc.NewStreamServerInterceptor()),
+        )
+
+        handler := domain.CreateHandler(s, userUseCase)
+
+        pb.RegisterUserServer(s, handler)
+
+        logger.Infof("Serving gRPC on 0.0.0.0: %v", pkg.Getenv("GRPC_PORT"))
+        s.Serve(port)
+
+        return nil</span>
+}
+
+func NewHttpServer() error <span class="cov0" title="0">{
+        ctx := context.Background()
+        ctx, cancel := context.WithCancel(ctx)
+        defer cancel()
+
+        // Connect to the GRPC server
+        addr := "0.0.0.0:" + pkg.Getenv("GRPC_PORT")
+        conn, err := grpc.Dial(addr, grpc.WithInsecure(),
+                grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(constant.MAX_SIZE_GRPC), grpc.MaxCallSendMsgSize(constant.MAX_SIZE_GRPC)),
+                grpc.WithStreamInterceptor(apmgrpc.NewStreamClientInterceptor()),
+                grpc.WithUnaryInterceptor(apmgrpc.NewUnaryClientInterceptor()),
+        )
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatalf("fail to dial: %v", err)
+                panic(err)</span>
+        }
+        <span class="cov0" title="0">defer conn.Close()
+
+        // Create new grpc-gateway
+        rmux := runtime.NewServeMux(runtime.WithIncomingHeaderMatcher(middleware.CustomMatcher))
+
+        for _, f := range []func(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error{
+                pb.RegisterUserHandler,
+        } </span><span class="cov0" title="0">{
+                if err = f(ctx, rmux, conn); err != nil </span><span class="cov0" title="0">{
+                        log.Fatal(err)
+                        panic(err)</span>
+                }
+        }
+
+        // create http server mux
+        <span class="cov0" title="0">mux := http.NewServeMux()
+        mux.Handle("/", rmux)
+
+        corsMiddleware := cors.New(cors.Options{
+                AllowedOrigins:   pkg.GetEnvCors("CORS_ORIGIN_ALLOWED"),
+                AllowedMethods:   pkg.GetEnvCors("CORS_METHOD_ALLOWED"),
+                AllowedHeaders:   pkg.GetEnvCors("CORS_HEADER_ALLOWED"),
+                AllowCredentials: false,
+        })
+
+        // running rest http server
+        logger.Infof("Serving Rest Http on 0.0.0.0: %v", pkg.Getenv("HTTP_PORT"))
+        err = http.ListenAndServe("0.0.0.0:"+pkg.Getenv("HTTP_PORT"), corsMiddleware.Handler(http.HandlerFunc(func(w http.ResponseWriter, request *http.Request) </span><span class="cov0" title="0">{
+                wHead := w.Header()
+                rHead := request.Header
+                wHead.Set(constant.ACAM, strings.Join(pkg.GetEnvCors("CORS_METHOD_ALLOWED"), ", "))
+                wHead.Set(constant.ACAH, constant.ACAH_VALUE)
+                wHead.Set(constant.ACAC, constant.ACAC_VALUE)
+                wHead.Set(constant.HSTS, constant.HSTS_VALUE)
+                wHead.Set(constant.CC, constant.CC_VALUE)
+                wHead.Set(constant.XCTO, constant.XCTO_VALUE)
+                wHead.Set("Content-Security-Policy", "default-src 'self'")
+
+                rHead.Set(constant.GRPC_METHOD, strings.Join(pkg.GetEnvCors("CORS_METHOD_ALLOWED"), ", "))
+                var bodyString string
+                if request.Body != nil </span><span class="cov0" title="0">{
+                        buf := new(strings.Builder)
+                        _, err := io.Copy(buf, request.Body)
+                        if err != nil </span><span class="cov0" title="0">{
+                                http.Error(w, "can't read body", http.StatusBadRequest)
+                                return
+                        }</span>
+
+                        <span class="cov0" title="0">bodyString, err = middleware.ValidateRequestBody(buf.String())
+                        if err != nil </span><span class="cov0" title="0">{
+                                http.Error(w, "can't read body", http.StatusBadRequest)
+                                return
+                        }</span>
+                        // fmt.Println("request : ", bodyString)
+
+                        <span class="cov0" title="0">request.Body = io.NopCloser(strings.NewReader(bodyString))</span>
+                }
+
+                <span class="cov0" title="0">rec := httptest.NewRecorder()
+                mux.ServeHTTP(rec, request)
+                apmhttp.Wrap(mux)
+
+                // var result interface{}
+                for k, v := range rec.Header() </span><span class="cov0" title="0">{
+                        w.Header()[k] = v
+                }</span>
+                // grab the captured response body
+                <span class="cov0" title="0">data := rec.Body.Bytes()
+
+                response := model.Response{}
+                json.Unmarshal(data, &amp;response)
+                var bodyInterface interface{}
+                json.Unmarshal([]byte(bodyString), &amp;bodyInterface)
+                bodyMarshal, _ := json.Marshal(bodyInterface)
+
+                // REPOSITORY LOGGER
+                logger.Info(fmt.Sprintf("[ms-sme-crow:log] [RequestURL] : %s, [RequestMethod] : %s, [RequestBody] : %s, [ResponseData] : %s", request.RequestURI, request.Method, string(bodyMarshal), string(data)))
+
+                if request.Method == "OPTIONS" </span><span class="cov0" title="0">{
+                        w.WriteHeader(http.StatusOK)
+                }</span> else<span class="cov0" title="0"> {
+                        code := response.ErrorCode
+                        if code &lt; 100 </span><span class="cov0" title="0">{
+                                code = response.Code
+                        }</span>
+
+                        <span class="cov0" title="0">if code &lt; 100 </span><span class="cov0" title="0">{
+                                response = model.Response{
+                                        Code:         http.StatusInternalServerError,
+                                        ResponseCode: constant.FAILED_INTERNAL,
+                                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                                        ResponseData: nil,
+                                }
+                                data, _ = json.Marshal(response)
+                                code = http.StatusInternalServerError
+                        }</span>
+                        <span class="cov0" title="0">w.WriteHeader(code)</span>
+                }
+
+                <span class="cov0" title="0">i, err := w.Write(data)
+                if err != nil </span><span class="cov0" title="0">{
+                        logger.Info(fmt.Sprintf("Error Write Data %d : %v", i, err.Error()))
+                }</span>
+        })))
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                log.Fatal(err)
+                panic(err)</span>
+                <span class="cov0" title="0">return err</span>
+        }
+        <span class="cov0" title="0">return nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">// Code generated by mockery v2.46.3. DO NOT EDIT.
+
+package mocks
+
+import (
+        context "context"
+        model "grpc/pkg/model"
+
+        mock "github.com/stretchr/testify/mock"
+
+        util "grpc/pkg/util"
+)
+
+// UserRepository is an autogenerated mock type for the UserRepository type
+type UserRepository struct {
+        mock.Mock
+}
+
+// GetListUser provides a mock function with given fields: _a0, _a1, _a2
+func (_m *UserRepository) GetListUser(_a0 context.Context, _a1 util.Pagination, _a2 map[string]string) ([]model.User, int64, error) <span class="cov0" title="0">{
+        ret := _m.Called(_a0, _a1, _a2)
+
+        if len(ret) == 0 </span><span class="cov0" title="0">{
+                panic("no return value specified for GetListUser")</span>
+        }
+
+        <span class="cov0" title="0">var r0 []model.User
+        var r1 int64
+        var r2 error
+        if rf, ok := ret.Get(0).(func(context.Context, util.Pagination, map[string]string) ([]model.User, int64, error)); ok </span><span class="cov0" title="0">{
+                return rf(_a0, _a1, _a2)
+        }</span>
+        <span class="cov0" title="0">if rf, ok := ret.Get(0).(func(context.Context, util.Pagination, map[string]string) []model.User); ok </span><span class="cov0" title="0">{
+                r0 = rf(_a0, _a1, _a2)
+        }</span> else<span class="cov0" title="0"> {
+                if ret.Get(0) != nil </span><span class="cov0" title="0">{
+                        r0 = ret.Get(0).([]model.User)
+                }</span>
+        }
+
+        <span class="cov0" title="0">if rf, ok := ret.Get(1).(func(context.Context, util.Pagination, map[string]string) int64); ok </span><span class="cov0" title="0">{
+                r1 = rf(_a0, _a1, _a2)
+        }</span> else<span class="cov0" title="0"> {
+                r1 = ret.Get(1).(int64)
+        }</span>
+
+        <span class="cov0" title="0">if rf, ok := ret.Get(2).(func(context.Context, util.Pagination, map[string]string) error); ok </span><span class="cov0" title="0">{
+                r2 = rf(_a0, _a1, _a2)
+        }</span> else<span class="cov0" title="0"> {
+                r2 = ret.Error(2)
+        }</span>
+
+        <span class="cov0" title="0">return r0, r1, r2</span>
+}
+
+// GetUserById provides a mock function with given fields: ctx, id
+func (_m *UserRepository) GetUserById(ctx context.Context, id string) (model.User, error) <span class="cov0" title="0">{
+        ret := _m.Called(ctx, id)
+
+        if len(ret) == 0 </span><span class="cov0" title="0">{
+                panic("no return value specified for GetUserById")</span>
+        }
+
+        <span class="cov0" title="0">var r0 model.User
+        var r1 error
+        if rf, ok := ret.Get(0).(func(context.Context, string) (model.User, error)); ok </span><span class="cov0" title="0">{
+                return rf(ctx, id)
+        }</span>
+        <span class="cov0" title="0">if rf, ok := ret.Get(0).(func(context.Context, string) model.User); ok </span><span class="cov0" title="0">{
+                r0 = rf(ctx, id)
+        }</span> else<span class="cov0" title="0"> {
+                r0 = ret.Get(0).(model.User)
+        }</span>
+
+        <span class="cov0" title="0">if rf, ok := ret.Get(1).(func(context.Context, string) error); ok </span><span class="cov0" title="0">{
+                r1 = rf(ctx, id)
+        }</span> else<span class="cov0" title="0"> {
+                r1 = ret.Error(1)
+        }</span>
+
+        <span class="cov0" title="0">return r0, r1</span>
+}
+
+// InsertUser provides a mock function with given fields: _a0, _a1
+func (_m *UserRepository) InsertUser(_a0 context.Context, _a1 model.User) error <span class="cov8" title="1">{
+        ret := _m.Called(_a0, _a1)
+
+        if len(ret) == 0 </span><span class="cov0" title="0">{
+                panic("no return value specified for InsertUser")</span>
+        }
+
+        <span class="cov8" title="1">var r0 error
+        if rf, ok := ret.Get(0).(func(context.Context, model.User) error); ok </span><span class="cov0" title="0">{
+                r0 = rf(_a0, _a1)
+        }</span> else<span class="cov8" title="1"> {
+                r0 = ret.Error(0)
+        }</span>
+
+        <span class="cov8" title="1">return r0</span>
+}
+
+// UpdateUser provides a mock function with given fields: ctx, user
+func (_m *UserRepository) UpdateUser(ctx context.Context, user model.User) error <span class="cov0" title="0">{
+        ret := _m.Called(ctx, user)
+
+        if len(ret) == 0 </span><span class="cov0" title="0">{
+                panic("no return value specified for UpdateUser")</span>
+        }
+
+        <span class="cov0" title="0">var r0 error
+        if rf, ok := ret.Get(0).(func(context.Context, model.User) error); ok </span><span class="cov0" title="0">{
+                r0 = rf(ctx, user)
+        }</span> else<span class="cov0" title="0"> {
+                r0 = ret.Error(0)
+        }</span>
+
+        <span class="cov0" title="0">return r0</span>
+}
+
+// NewUserRepository creates a new instance of UserRepository. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
+// The first argument is typically a *testing.T value.
+func NewUserRepository(t interface {
+        mock.TestingT
+        Cleanup(func())
+}) *UserRepository <span class="cov0" title="0">{
+        mock := &amp;UserRepository{}
+        mock.Mock.Test(t)
+
+        t.Cleanup(func() </span><span class="cov0" title="0">{ mock.AssertExpectations(t) }</span>)
+
+        <span class="cov0" title="0">return mock</span>
+}
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package repository
+
+import (
+        "context"
+        "fmt"
+        "grpc/pkg/database"
+        "grpc/pkg/model"
+        "grpc/pkg/util"
+
+        "github.com/jinzhu/gorm"
+)
+
+type UserRepository interface {
+        InsertUser(context.Context, model.User) error
+        GetListUser(context.Context, util.Pagination, map[string]string) (result []model.User, count int64, err error)
+        GetUserById(ctx context.Context, id string) (result model.User, err error)
+        UpdateUser(ctx context.Context, user model.User) (err error)
+}
+
+type userRepository struct {
+        db *gorm.DB
+}
+
+func NewUserRepository() *userRepository <span class="cov0" title="0">{
+        return &amp;userRepository{
+                db: database.DbGorm,
+        }
+}</span>
+
+func (r userRepository) InsertUser(ctx context.Context, user model.User) (err error) <span class="cov0" title="0">{
+        return r.db.Where(model.User{Email: user.Email}).Assign(model.User{
+                Id:        user.Id,
+                Email:     user.Email,
+                Password:  user.Password,
+                Name:      user.Name,
+                CreatedAt: user.CreatedAt,
+                UpdatedAt: user.UpdatedAt,
+        }).FirstOrCreate(&amp;model.User{}).Error
+}</span>
+
+func (r userRepository) GetListUser(ctx context.Context, pagination util.Pagination, where map[string]string) (result []model.User, count int64, err error) <span class="cov0" title="0">{
+        var field, sort string
+
+        queryBuilder := r.db.Table("users").
+                Select("id, email, name").
+                Where("deleted_at isnull")
+
+        if where["name"] != "" </span><span class="cov0" title="0">{
+                name := fmt.Sprintf("%%%s%%", where["name"])
+                queryBuilder = queryBuilder.Where("name ILIKE ?", name)
+        }</span>
+
+        <span class="cov0" title="0">if where["email"] != "" </span><span class="cov0" title="0">{
+                name := fmt.Sprintf("%%%s%%", where["email"])
+                queryBuilder = queryBuilder.Where("email ILIKE ?", name)
+        }</span>
+
+        <span class="cov0" title="0">if pagination.Field != "" </span><span class="cov0" title="0">{
+                if pagination.Field == "name" </span><span class="cov0" title="0">{
+                        field = "name"
+                }</span> else<span class="cov0" title="0"> if pagination.Field == "email" </span><span class="cov0" title="0">{
+                        field = "email"
+                }</span> else<span class="cov0" title="0"> {
+                        field = "created_at"
+                }</span>
+        } else<span class="cov0" title="0"> {
+                field = "created_at"
+        }</span>
+
+        <span class="cov0" title="0">if pagination.Sort != "" </span><span class="cov0" title="0">{
+                sort = pagination.Sort
+        }</span> else<span class="cov0" title="0"> {
+                sort = "DESC"
+        }</span>
+
+        <span class="cov0" title="0">offset := (pagination.Page - 1) * pagination.Limit
+        orderBy := fmt.Sprintf("%s %s", field, sort)
+        limitBuilder := queryBuilder.Limit(int(pagination.Limit)).Offset(int(offset)).Order(orderBy)
+
+        err = limitBuilder.Find(&amp;result).Error
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, count, err
+        }</span>
+
+        <span class="cov0" title="0">err = queryBuilder.Count(&amp;count).Error
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, count, err
+        }</span>
+
+        <span class="cov0" title="0">return</span>
+}
+
+func (r userRepository) UpdateUser(ctx context.Context, user model.User) (err error) <span class="cov0" title="0">{
+        return r.db.Save(&amp;user).Error
+}</span>
+
+func (r userRepository) GetUserById(ctx context.Context, id string) (result model.User, err error) <span class="cov0" title="0">{
+        err = r.db.Where(model.User{Id: id}).First(&amp;result).Error
+        return
+}</span>
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">package usecase
+
+import (
+        "context"
+        "grpc/internal/constant"
+        "grpc/internal/repository"
+        pb "grpc/pb/v1"
+        "grpc/pkg/model"
+        "grpc/pkg/util"
+        "math"
+        "net/http"
+        "time"
+
+        "github.com/google/uuid"
+)
+
+type UserService interface {
+        CreateUser(context.Context, *pb.CreateUserRequest) (*pb.CreateUserResponse, error)
+        GetListUser(context.Context, *pb.GetListUserRequest) (*pb.GetListUserResponse, error)
+        UpdateUser(context.Context, *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error)
+        DeleteUser(context.Context, *pb.DeleteUserRequest) (*pb.DeleteUserResponse, error)
+}
+
+type userService struct {
+        UserRepository repository.UserRepository
+}
+
+func NewUserService() *userService <span class="cov8" title="1">{
+        return &amp;userService{}
+}</span>
+
+func (s *userService) SetUserRepository(userRepository repository.UserRepository) *userService <span class="cov8" title="1">{
+        s.UserRepository = userRepository
+        return s
+
+}</span>
+
+func (s *userService) CreateUser(ctx context.Context, request *pb.CreateUserRequest) (*pb.CreateUserResponse, error) <span class="cov8" title="1">{
+        now := time.Now()
+        id := uuid.New().String()
+        body := request.GetBody()
+        password, err := util.HashPassword(body.GetPassword())
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.CreateUserResponse{
+                        Code:         http.StatusBadRequest,
+                        ResponseCode: constant.FAILED_REQUIRED,
+                        ResponseDesc: err.Error(),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov8" title="1">payload := model.User{
+                Id:        id,
+                Name:      body.GetName(),
+                Email:     body.GetEmail(),
+                Password:  password,
+                CreatedAt: now,
+                UpdatedAt: now,
+        }
+
+        err = s.UserRepository.InsertUser(ctx, payload)
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.CreateUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov8" title="1">return &amp;pb.CreateUserResponse{
+                Code:         http.StatusOK,
+                ResponseCode: constant.SUCCESS,
+                ResponseDesc: http.StatusText(http.StatusOK),
+                ResponseData: &amp;pb.CreateUserResponse_ResponseData{
+                        Id: id,
+                },
+        }, nil</span>
+}
+
+func (s *userService) GetListUser(ctx context.Context, request *pb.GetListUserRequest) (*pb.GetListUserResponse, error) <span class="cov0" title="0">{
+        pagination := util.GeneratePaginationFromRequest(request.Body.Query.GetLimit(), request.Body.Query.GetPage(), request.Body.Query.GetField(), request.Body.Query.GetSort())
+        users, count, err := s.UserRepository.GetListUser(ctx, pagination, request.Body.Where.GetFilter())
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.GetListUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov0" title="0">if count == 0 </span><span class="cov0" title="0">{
+                return &amp;pb.GetListUserResponse{
+                        Code:         http.StatusNotFound,
+                        ResponseCode: constant.FAILED_NOT_FOUND,
+                        ResponseDesc: http.StatusText(http.StatusNotFound),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov0" title="0">var data []*pb.GetListUserResponse_ResponseData_ListUser
+        for _, item := range users </span><span class="cov0" title="0">{
+                user := &amp;pb.GetListUserResponse_ResponseData_ListUser{
+                        Id:    item.Id,
+                        Email: item.Email,
+                        Name:  item.Name,
+                }
+                data = append(data, user)
+        }</span>
+
+        <span class="cov0" title="0">return &amp;pb.GetListUserResponse{
+                Code:         http.StatusOK,
+                ResponseCode: constant.SUCCESS,
+                ResponseDesc: http.StatusText(http.StatusOK),
+                ResponseData: &amp;pb.GetListUserResponse_ResponseData{
+                        Page:      request.Body.Query.GetPage(),
+                        Limit:     request.Body.Query.GetLimit(),
+                        Total:     int32(count),
+                        TotalPage: int32(math.Ceil(float64(count) / float64(request.Body.Query.GetLimit()))),
+                        ListUser:  data,
+                },
+        }, nil</span>
+}
+
+func (s *userService) UpdateUser(ctx context.Context, request *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) <span class="cov0" title="0">{
+        body := request.GetBody()
+        user, err := s.UserRepository.GetUserById(ctx, body.GetId())
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.UpdateUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov0" title="0">err = util.CheckPassword(body.GetPassword(), user.Password)
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.UpdateUserResponse{
+                        Code:         http.StatusForbidden,
+                        ResponseCode: constant.FAILED_EXIST,
+                        ResponseDesc: http.StatusText(http.StatusForbidden),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+        <span class="cov0" title="0">newPassword := user.Password
+        now := time.Now()
+        if body.GetNewPassword() != "" </span><span class="cov0" title="0">{
+                newPassword, err = util.HashPassword(body.GetNewPassword())
+                if err != nil </span><span class="cov0" title="0">{
+                        return &amp;pb.UpdateUserResponse{
+                                Code:         http.StatusBadRequest,
+                                ResponseCode: constant.FAILED_REQUIRED,
+                                ResponseDesc: err.Error(),
+                                ResponseData: nil,
+                        }, nil
+                }</span>
+        }
+
+        <span class="cov0" title="0">err = s.UserRepository.UpdateUser(ctx, model.User{
+                Id:        body.GetId(),
+                Email:     body.GetEmail(),
+                Password:  newPassword,
+                Name:      body.GetName(),
+                UpdatedAt: now,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.UpdateUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov0" title="0">return &amp;pb.UpdateUserResponse{
+                Code:         http.StatusOK,
+                ResponseCode: constant.SUCCESS,
+                ResponseDesc: http.StatusText(http.StatusOK),
+                ResponseData: &amp;pb.UpdateUserResponse_ResponseData{
+                        Id: body.GetId(),
+                },
+        }, nil</span>
+}
+
+func (s *userService) DeleteUser(ctx context.Context, request *pb.DeleteUserRequest) (result *pb.DeleteUserResponse, err error) <span class="cov0" title="0">{
+        body := request.GetBody()
+        user, err := s.UserRepository.GetUserById(ctx, body.GetId())
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.DeleteUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+
+        <span class="cov0" title="0">now := time.Now()
+        user.DeletedAt = &amp;now
+        err = s.UserRepository.UpdateUser(ctx, user)
+        if err != nil </span><span class="cov0" title="0">{
+                return &amp;pb.DeleteUserResponse{
+                        Code:         http.StatusInternalServerError,
+                        ResponseCode: constant.FAILED_INTERNAL,
+                        ResponseDesc: http.StatusText(http.StatusInternalServerError),
+                        ResponseData: nil,
+                }, nil
+        }</span>
+        <span class="cov0" title="0">return &amp;pb.DeleteUserResponse{
+                Code:         http.StatusOK,
+                ResponseCode: constant.SUCCESS,
+                ResponseDesc: http.StatusText(http.StatusOK),
+                ResponseData: &amp;pb.DeleteUserResponse_ResponseData{
+                        Id: body.GetId(),
+                },
+        }, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">package main
+
+import (
+        cmd "grpc/cmd"
+        "log"
+
+        "github.com/joho/godotenv"
+)
+
+func main() <span class="cov0" title="0">{
+        err := godotenv.Load()
+        if err != nil </span><span class="cov0" title="0">{
+                log.Fatal(err)
+        }</span>
+        <span class="cov0" title="0">cmd.Init()</span>
+}
+</pre>
+		
+		<pre class="file" id="file7" style="display: none">package middleware
+
+import (
+        "fmt"
+        "grpc/internal/constant"
+        "regexp"
+        "strings"
+
+        "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+)
+
+func CustomMatcher(key string) (string, bool) <span class="cov0" title="0">{
+        switch key </span>{
+        case constant.ACCEPT:<span class="cov0" title="0">
+                return key, true</span>
+        case constant.XAPPNAME:<span class="cov0" title="0">
+                return key, true</span>
+        case constant.XAPIKEY:<span class="cov0" title="0">
+                return key, true</span>
+        case constant.AUTHORIZATION:<span class="cov0" title="0">
+                return key, true</span>
+        case constant.CLIENTSIGNATURE:<span class="cov0" title="0">
+                return key, true</span>
+        default:<span class="cov0" title="0">
+                return runtime.DefaultHeaderMatcher(key)</span>
+        }
+}
+
+func ValidateRequestBody(bodyString string) (string, error) <span class="cov0" title="0">{
+        // validate if thre is some special character
+        positiveinput := regexp.MustCompile(`^[a-zA-Z0-9_.,:/()\t\n\v\f\r]*$`).MatchString
+        inputan := positiveinput(bodyString)
+        if !strings.Contains(bodyString, "http://") &amp;&amp; !strings.Contains(bodyString, "https://") &amp;&amp; !strings.Contains(bodyString, "://") &amp;&amp; !strings.Contains(bodyString, "./") </span><span class="cov0" title="0">{
+                if strings.Contains(bodyString, "data:image/jpeg;base64") || strings.Contains(bodyString, "data:image/pjpeg;base64") || strings.Contains(bodyString, "data:image/png;base64") || strings.Contains(bodyString, "data:application/pdf;base64") </span><span class="cov0" title="0">{
+                        return bodyString, nil
+                }</span> else<span class="cov0" title="0"> if !inputan </span><span class="cov0" title="0">{
+                        output := Replaceinputhelp(bodyString)
+                        return output, nil
+                }</span> else<span class="cov0" title="0"> {
+                        return bodyString, nil
+                }</span>
+        } else<span class="cov0" title="0"> {
+                return "", fmt.Errorf("body contain unknown type")
+        }</span>
+}
+
+func Replaceinputhelp(input string) (output string) <span class="cov0" title="0">{
+        request := "{\"body\":" + input + "}"
+        // replace := ""
+        // iteration := -1
+        // symbol := map[int]string{
+        //        1:  "%",
+        //        2:  "*",
+        //        3:  "#",
+        //        4:  "!",
+        //        5:  "^",
+        //        6:  "&lt;",
+        //        7:  "&gt;",
+        //        8:  "?",
+        //        9:  "&amp;",
+        //        10: "$",
+        //        11: ";",
+        // }
+        //
+        // replacedstring1 := strings.Replace(input, symbol[2], replace, iteration)
+        // replacedstring2 := strings.Replace(replacedstring1, symbol[3], replace, iteration)
+        // replacedstring3 := strings.Replace(replacedstring2, symbol[4], replace, iteration)
+        // replacedstring4 := strings.Replace(replacedstring3, symbol[5], replace, iteration)
+        // replacedstring5 := strings.Replace(replacedstring4, symbol[6], replace, iteration)
+        // replacedstring6 := strings.Replace(replacedstring5, symbol[7], replace, iteration)
+        // replacedstring7 := strings.Replace(replacedstring6, symbol[8], replace, iteration)
+        // replacedstring8 := strings.Replace(replacedstring7, symbol[10], replace, iteration)
+        // replacedstring9 := strings.Replace(replacedstring8, symbol[11], replace, iteration)
+        // output = replacedstring9
+        output = request
+        return output
+}</span>
+</pre>
+		
+		<pre class="file" id="file8" style="display: none">// Code generated by protoc-gen-go. DO NOT EDIT.
+// versions:
+//         protoc-gen-go v1.35.2
+//         protoc        v5.28.3
+// source: v1/user.proto
+
+package pb
+
+import (
+        _ "google.golang.org/genproto/googleapis/api/annotations"
+        protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+        protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+        reflect "reflect"
+        sync "sync"
+)
+
+const (
+        // Verify that this generated code is sufficiently up-to-date.
+        _ = protoimpl.EnforceVersion(20 - protoimpl.MinVersion)
+        // Verify that runtime/protoimpl is sufficiently up-to-date.
+        _ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
+)
+
+type CreateUserRequest struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Headers map[string]string           `protobuf:"bytes,1,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+        Body    *CreateUserRequest_DataUser `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
+}
+
+func (x *CreateUserRequest) Reset() <span class="cov0" title="0">{
+        *x = CreateUserRequest{}
+        mi := &amp;file_v1_user_proto_msgTypes[0]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *CreateUserRequest) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*CreateUserRequest) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *CreateUserRequest) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[0]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
+func (*CreateUserRequest) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{0}
+}</span>
+
+func (x *CreateUserRequest) GetHeaders() map[string]string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Headers
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (x *CreateUserRequest) GetBody() *CreateUserRequest_DataUser <span class="cov8" title="1">{
+        if x != nil </span><span class="cov8" title="1">{
+                return x.Body
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type CreateUserResponse struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Code         uint32                           `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+        ResponseCode string                           `protobuf:"bytes,2,opt,name=responseCode,proto3" json:"responseCode,omitempty"`
+        ResponseDesc string                           `protobuf:"bytes,3,opt,name=responseDesc,proto3" json:"responseDesc,omitempty"`
+        ResponseData *CreateUserResponse_ResponseData `protobuf:"bytes,4,opt,name=responseData,proto3" json:"responseData,omitempty"`
+}
+
+func (x *CreateUserResponse) Reset() <span class="cov0" title="0">{
+        *x = CreateUserResponse{}
+        mi := &amp;file_v1_user_proto_msgTypes[1]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *CreateUserResponse) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*CreateUserResponse) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *CreateUserResponse) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[1]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use CreateUserResponse.ProtoReflect.Descriptor instead.
+func (*CreateUserResponse) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{1}
+}</span>
+
+func (x *CreateUserResponse) GetCode() uint32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Code
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *CreateUserResponse) GetResponseCode() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseCode
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *CreateUserResponse) GetResponseDesc() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseDesc
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *CreateUserResponse) GetResponseData() *CreateUserResponse_ResponseData <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseData
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type GetListUserRequest struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Headers map[string]string        `protobuf:"bytes,1,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+        Body    *GetListUserRequest_Data `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
+}
+
+func (x *GetListUserRequest) Reset() <span class="cov0" title="0">{
+        *x = GetListUserRequest{}
+        mi := &amp;file_v1_user_proto_msgTypes[2]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *GetListUserRequest) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*GetListUserRequest) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *GetListUserRequest) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[2]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use GetListUserRequest.ProtoReflect.Descriptor instead.
+func (*GetListUserRequest) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{2}
+}</span>
+
+func (x *GetListUserRequest) GetHeaders() map[string]string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Headers
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (x *GetListUserRequest) GetBody() *GetListUserRequest_Data <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Body
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type GetListUserResponse struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Code         uint32                            `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+        ResponseCode string                            `protobuf:"bytes,2,opt,name=responseCode,proto3" json:"responseCode,omitempty"`
+        ResponseDesc string                            `protobuf:"bytes,3,opt,name=responseDesc,proto3" json:"responseDesc,omitempty"`
+        ResponseData *GetListUserResponse_ResponseData `protobuf:"bytes,4,opt,name=responseData,proto3" json:"responseData,omitempty"`
+}
+
+func (x *GetListUserResponse) Reset() <span class="cov0" title="0">{
+        *x = GetListUserResponse{}
+        mi := &amp;file_v1_user_proto_msgTypes[3]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *GetListUserResponse) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*GetListUserResponse) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *GetListUserResponse) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[3]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use GetListUserResponse.ProtoReflect.Descriptor instead.
+func (*GetListUserResponse) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{3}
+}</span>
+
+func (x *GetListUserResponse) GetCode() uint32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Code
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *GetListUserResponse) GetResponseCode() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseCode
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *GetListUserResponse) GetResponseDesc() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseDesc
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *GetListUserResponse) GetResponseData() *GetListUserResponse_ResponseData <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseData
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type UpdateUserRequest struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Headers map[string]string           `protobuf:"bytes,1,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+        Body    *UpdateUserRequest_DataUser `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
+}
+
+func (x *UpdateUserRequest) Reset() <span class="cov0" title="0">{
+        *x = UpdateUserRequest{}
+        mi := &amp;file_v1_user_proto_msgTypes[4]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *UpdateUserRequest) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*UpdateUserRequest) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[4]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
+func (*UpdateUserRequest) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{4}
+}</span>
+
+func (x *UpdateUserRequest) GetHeaders() map[string]string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Headers
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (x *UpdateUserRequest) GetBody() *UpdateUserRequest_DataUser <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Body
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type UpdateUserResponse struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Code         uint32                           `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+        ResponseCode string                           `protobuf:"bytes,2,opt,name=responseCode,proto3" json:"responseCode,omitempty"`
+        ResponseDesc string                           `protobuf:"bytes,3,opt,name=responseDesc,proto3" json:"responseDesc,omitempty"`
+        ResponseData *UpdateUserResponse_ResponseData `protobuf:"bytes,4,opt,name=responseData,proto3" json:"responseData,omitempty"`
+}
+
+func (x *UpdateUserResponse) Reset() <span class="cov0" title="0">{
+        *x = UpdateUserResponse{}
+        mi := &amp;file_v1_user_proto_msgTypes[5]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *UpdateUserResponse) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*UpdateUserResponse) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *UpdateUserResponse) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[5]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use UpdateUserResponse.ProtoReflect.Descriptor instead.
+func (*UpdateUserResponse) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{5}
+}</span>
+
+func (x *UpdateUserResponse) GetCode() uint32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Code
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *UpdateUserResponse) GetResponseCode() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseCode
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *UpdateUserResponse) GetResponseDesc() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseDesc
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *UpdateUserResponse) GetResponseData() *UpdateUserResponse_ResponseData <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseData
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type DeleteUserRequest struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Headers map[string]string           `protobuf:"bytes,1,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+        Body    *DeleteUserRequest_DataUser `protobuf:"bytes,2,opt,name=body,proto3" json:"body,omitempty"`
+}
+
+func (x *DeleteUserRequest) Reset() <span class="cov0" title="0">{
+        *x = DeleteUserRequest{}
+        mi := &amp;file_v1_user_proto_msgTypes[6]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *DeleteUserRequest) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*DeleteUserRequest) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *DeleteUserRequest) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[6]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use DeleteUserRequest.ProtoReflect.Descriptor instead.
+func (*DeleteUserRequest) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{6}
+}</span>
+
+func (x *DeleteUserRequest) GetHeaders() map[string]string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Headers
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (x *DeleteUserRequest) GetBody() *DeleteUserRequest_DataUser <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Body
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type DeleteUserResponse struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Code         uint32                           `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+        ResponseCode string                           `protobuf:"bytes,2,opt,name=responseCode,proto3" json:"responseCode,omitempty"`
+        ResponseDesc string                           `protobuf:"bytes,3,opt,name=responseDesc,proto3" json:"responseDesc,omitempty"`
+        ResponseData *DeleteUserResponse_ResponseData `protobuf:"bytes,4,opt,name=responseData,proto3" json:"responseData,omitempty"`
+}
+
+func (x *DeleteUserResponse) Reset() <span class="cov0" title="0">{
+        *x = DeleteUserResponse{}
+        mi := &amp;file_v1_user_proto_msgTypes[7]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *DeleteUserResponse) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*DeleteUserResponse) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *DeleteUserResponse) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[7]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use DeleteUserResponse.ProtoReflect.Descriptor instead.
+func (*DeleteUserResponse) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{7}
+}</span>
+
+func (x *DeleteUserResponse) GetCode() uint32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Code
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *DeleteUserResponse) GetResponseCode() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseCode
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *DeleteUserResponse) GetResponseDesc() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseDesc
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *DeleteUserResponse) GetResponseData() *DeleteUserResponse_ResponseData <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ResponseData
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type CreateUserRequest_DataUser struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Email    string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+        Password string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+        Name     string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (x *CreateUserRequest_DataUser) Reset() <span class="cov0" title="0">{
+        *x = CreateUserRequest_DataUser{}
+        mi := &amp;file_v1_user_proto_msgTypes[9]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *CreateUserRequest_DataUser) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*CreateUserRequest_DataUser) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *CreateUserRequest_DataUser) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[9]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use CreateUserRequest_DataUser.ProtoReflect.Descriptor instead.
+func (*CreateUserRequest_DataUser) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{0, 1}
+}</span>
+
+func (x *CreateUserRequest_DataUser) GetEmail() string <span class="cov8" title="1">{
+        if x != nil </span><span class="cov8" title="1">{
+                return x.Email
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *CreateUserRequest_DataUser) GetPassword() string <span class="cov8" title="1">{
+        if x != nil </span><span class="cov8" title="1">{
+                return x.Password
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *CreateUserRequest_DataUser) GetName() string <span class="cov8" title="1">{
+        if x != nil </span><span class="cov8" title="1">{
+                return x.Name
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+type CreateUserResponse_ResponseData struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *CreateUserResponse_ResponseData) Reset() <span class="cov0" title="0">{
+        *x = CreateUserResponse_ResponseData{}
+        mi := &amp;file_v1_user_proto_msgTypes[10]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *CreateUserResponse_ResponseData) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*CreateUserResponse_ResponseData) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *CreateUserResponse_ResponseData) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[10]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use CreateUserResponse_ResponseData.ProtoReflect.Descriptor instead.
+func (*CreateUserResponse_ResponseData) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{1, 0}
+}</span>
+
+func (x *CreateUserResponse_ResponseData) GetId() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Id
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+type GetListUserRequest_Data struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Query *GetListUserRequest_Data_Query `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
+        Where *GetListUserRequest_Data_Where `protobuf:"bytes,2,opt,name=where,proto3" json:"where,omitempty"`
+}
+
+func (x *GetListUserRequest_Data) Reset() <span class="cov0" title="0">{
+        *x = GetListUserRequest_Data{}
+        mi := &amp;file_v1_user_proto_msgTypes[12]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *GetListUserRequest_Data) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*GetListUserRequest_Data) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *GetListUserRequest_Data) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[12]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use GetListUserRequest_Data.ProtoReflect.Descriptor instead.
+func (*GetListUserRequest_Data) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{2, 1}
+}</span>
+
+func (x *GetListUserRequest_Data) GetQuery() *GetListUserRequest_Data_Query <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Query
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+func (x *GetListUserRequest_Data) GetWhere() *GetListUserRequest_Data_Where <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Where
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type GetListUserRequest_Data_Query struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Limit int32  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+        Page  int32  `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+        Sort  string `protobuf:"bytes,3,opt,name=sort,proto3" json:"sort,omitempty"`
+        Field string `protobuf:"bytes,4,opt,name=field,proto3" json:"field,omitempty"`
+}
+
+func (x *GetListUserRequest_Data_Query) Reset() <span class="cov0" title="0">{
+        *x = GetListUserRequest_Data_Query{}
+        mi := &amp;file_v1_user_proto_msgTypes[13]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *GetListUserRequest_Data_Query) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*GetListUserRequest_Data_Query) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *GetListUserRequest_Data_Query) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[13]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use GetListUserRequest_Data_Query.ProtoReflect.Descriptor instead.
+func (*GetListUserRequest_Data_Query) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{2, 1, 0}
+}</span>
+
+func (x *GetListUserRequest_Data_Query) GetLimit() int32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Limit
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *GetListUserRequest_Data_Query) GetPage() int32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Page
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *GetListUserRequest_Data_Query) GetSort() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Sort
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *GetListUserRequest_Data_Query) GetField() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Field
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+type GetListUserRequest_Data_Where struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Filter map[string]string `protobuf:"bytes,1,rep,name=filter,proto3" json:"filter,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+}
+
+func (x *GetListUserRequest_Data_Where) Reset() <span class="cov0" title="0">{
+        *x = GetListUserRequest_Data_Where{}
+        mi := &amp;file_v1_user_proto_msgTypes[14]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *GetListUserRequest_Data_Where) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*GetListUserRequest_Data_Where) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *GetListUserRequest_Data_Where) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[14]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use GetListUserRequest_Data_Where.ProtoReflect.Descriptor instead.
+func (*GetListUserRequest_Data_Where) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{2, 1, 1}
+}</span>
+
+func (x *GetListUserRequest_Data_Where) GetFilter() map[string]string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Filter
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type GetListUserResponse_ResponseData struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Page      int32                                        `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+        Limit     int32                                        `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
+        Total     int32                                        `protobuf:"varint,3,opt,name=total,proto3" json:"total,omitempty"`
+        TotalPage int32                                        `protobuf:"varint,4,opt,name=totalPage,proto3" json:"totalPage,omitempty"`
+        ListUser  []*GetListUserResponse_ResponseData_ListUser `protobuf:"bytes,5,rep,name=listUser,proto3" json:"listUser,omitempty"`
+}
+
+func (x *GetListUserResponse_ResponseData) Reset() <span class="cov0" title="0">{
+        *x = GetListUserResponse_ResponseData{}
+        mi := &amp;file_v1_user_proto_msgTypes[16]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *GetListUserResponse_ResponseData) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*GetListUserResponse_ResponseData) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *GetListUserResponse_ResponseData) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[16]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use GetListUserResponse_ResponseData.ProtoReflect.Descriptor instead.
+func (*GetListUserResponse_ResponseData) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{3, 0}
+}</span>
+
+func (x *GetListUserResponse_ResponseData) GetPage() int32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Page
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *GetListUserResponse_ResponseData) GetLimit() int32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Limit
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *GetListUserResponse_ResponseData) GetTotal() int32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Total
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *GetListUserResponse_ResponseData) GetTotalPage() int32 <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.TotalPage
+        }</span>
+        <span class="cov0" title="0">return 0</span>
+}
+
+func (x *GetListUserResponse_ResponseData) GetListUser() []*GetListUserResponse_ResponseData_ListUser <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.ListUser
+        }</span>
+        <span class="cov0" title="0">return nil</span>
+}
+
+type GetListUserResponse_ResponseData_ListUser struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Id    string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+        Email string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+        Name  string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (x *GetListUserResponse_ResponseData_ListUser) Reset() <span class="cov0" title="0">{
+        *x = GetListUserResponse_ResponseData_ListUser{}
+        mi := &amp;file_v1_user_proto_msgTypes[17]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *GetListUserResponse_ResponseData_ListUser) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*GetListUserResponse_ResponseData_ListUser) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *GetListUserResponse_ResponseData_ListUser) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[17]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use GetListUserResponse_ResponseData_ListUser.ProtoReflect.Descriptor instead.
+func (*GetListUserResponse_ResponseData_ListUser) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{3, 0, 0}
+}</span>
+
+func (x *GetListUserResponse_ResponseData_ListUser) GetId() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Id
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *GetListUserResponse_ResponseData_ListUser) GetEmail() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Email
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *GetListUserResponse_ResponseData_ListUser) GetName() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Name
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+type UpdateUserRequest_DataUser struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+        Email       string `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+        Name        string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+        Password    string `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
+        NewPassword string `protobuf:"bytes,5,opt,name=newPassword,proto3" json:"newPassword,omitempty"`
+}
+
+func (x *UpdateUserRequest_DataUser) Reset() <span class="cov0" title="0">{
+        *x = UpdateUserRequest_DataUser{}
+        mi := &amp;file_v1_user_proto_msgTypes[19]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *UpdateUserRequest_DataUser) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*UpdateUserRequest_DataUser) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *UpdateUserRequest_DataUser) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[19]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use UpdateUserRequest_DataUser.ProtoReflect.Descriptor instead.
+func (*UpdateUserRequest_DataUser) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{4, 1}
+}</span>
+
+func (x *UpdateUserRequest_DataUser) GetId() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Id
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *UpdateUserRequest_DataUser) GetEmail() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Email
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *UpdateUserRequest_DataUser) GetName() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Name
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *UpdateUserRequest_DataUser) GetPassword() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Password
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+func (x *UpdateUserRequest_DataUser) GetNewPassword() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.NewPassword
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+type UpdateUserResponse_ResponseData struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *UpdateUserResponse_ResponseData) Reset() <span class="cov0" title="0">{
+        *x = UpdateUserResponse_ResponseData{}
+        mi := &amp;file_v1_user_proto_msgTypes[20]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *UpdateUserResponse_ResponseData) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*UpdateUserResponse_ResponseData) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *UpdateUserResponse_ResponseData) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[20]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use UpdateUserResponse_ResponseData.ProtoReflect.Descriptor instead.
+func (*UpdateUserResponse_ResponseData) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{5, 0}
+}</span>
+
+func (x *UpdateUserResponse_ResponseData) GetId() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Id
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+type DeleteUserRequest_DataUser struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *DeleteUserRequest_DataUser) Reset() <span class="cov0" title="0">{
+        *x = DeleteUserRequest_DataUser{}
+        mi := &amp;file_v1_user_proto_msgTypes[22]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *DeleteUserRequest_DataUser) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*DeleteUserRequest_DataUser) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *DeleteUserRequest_DataUser) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[22]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use DeleteUserRequest_DataUser.ProtoReflect.Descriptor instead.
+func (*DeleteUserRequest_DataUser) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{6, 1}
+}</span>
+
+func (x *DeleteUserRequest_DataUser) GetId() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Id
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+type DeleteUserResponse_ResponseData struct {
+        state         protoimpl.MessageState
+        sizeCache     protoimpl.SizeCache
+        unknownFields protoimpl.UnknownFields
+
+        Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *DeleteUserResponse_ResponseData) Reset() <span class="cov0" title="0">{
+        *x = DeleteUserResponse_ResponseData{}
+        mi := &amp;file_v1_user_proto_msgTypes[23]
+        ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+        ms.StoreMessageInfo(mi)
+}</span>
+
+func (x *DeleteUserResponse_ResponseData) String() string <span class="cov0" title="0">{
+        return protoimpl.X.MessageStringOf(x)
+}</span>
+
+func (*DeleteUserResponse_ResponseData) ProtoMessage() {<span class="cov0" title="0">}</span>
+
+func (x *DeleteUserResponse_ResponseData) ProtoReflect() protoreflect.Message <span class="cov0" title="0">{
+        mi := &amp;file_v1_user_proto_msgTypes[23]
+        if x != nil </span><span class="cov0" title="0">{
+                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+                if ms.LoadMessageInfo() == nil </span><span class="cov0" title="0">{
+                        ms.StoreMessageInfo(mi)
+                }</span>
+                <span class="cov0" title="0">return ms</span>
+        }
+        <span class="cov0" title="0">return mi.MessageOf(x)</span>
+}
+
+// Deprecated: Use DeleteUserResponse_ResponseData.ProtoReflect.Descriptor instead.
+func (*DeleteUserResponse_ResponseData) Descriptor() ([]byte, []int) <span class="cov0" title="0">{
+        return file_v1_user_proto_rawDescGZIP(), []int{7, 0}
+}</span>
+
+func (x *DeleteUserResponse_ResponseData) GetId() string <span class="cov0" title="0">{
+        if x != nil </span><span class="cov0" title="0">{
+                return x.Id
+        }</span>
+        <span class="cov0" title="0">return ""</span>
+}
+
+var File_v1_user_proto protoreflect.FileDescriptor
+
+var file_v1_user_proto_rawDesc = []byte{
+        0x0a, 0x0d, 0x76, 0x31, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
+        0x05, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1c, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x61,
+        0x70, 0x69, 0x2f, 0x61, 0x6e, 0x6e, 0x6f, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x70,
+        0x72, 0x6f, 0x74, 0x6f, 0x22, 0x99, 0x02, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55,
+        0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3f, 0x0a, 0x07, 0x68, 0x65,
+        0x61, 0x64, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x70, 0x72,
+        0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
+        0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73, 0x45, 0x6e, 0x74,
+        0x72, 0x79, 0x52, 0x07, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73, 0x12, 0x35, 0x0a, 0x04, 0x62,
+        0x6f, 0x64, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+        0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75,
+        0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x62, 0x6f,
+        0x64, 0x79, 0x1a, 0x3a, 0x0a, 0x0c, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73, 0x45, 0x6e, 0x74,
+        0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+        0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20,
+        0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x1a, 0x50,
+        0x0a, 0x08, 0x44, 0x61, 0x74, 0x61, 0x55, 0x73, 0x65, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d,
+        0x61, 0x69, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c,
+        0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01,
+        0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x12, 0x0a, 0x04,
+        0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65,
+        0x22, 0xdc, 0x01, 0x0a, 0x12, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52,
+        0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18,
+        0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x72,
+        0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
+        0x09, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x43, 0x6f, 0x64, 0x65, 0x12,
+        0x22, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x65, 0x73, 0x63, 0x18,
+        0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44,
+        0x65, 0x73, 0x63, 0x12, 0x4a, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44,
+        0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+        0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70,
+        0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74,
+        0x61, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x1a,
+        0x1e, 0x0a, 0x0c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12,
+        0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22,
+        0xb3, 0x04, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52,
+        0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x40, 0x0a, 0x07, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72,
+        0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
+        0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65,
+        0x73, 0x74, 0x2e, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52,
+        0x07, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73, 0x12, 0x32, 0x0a, 0x04, 0x62, 0x6f, 0x64, 0x79,
+        0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47,
+        0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+        0x74, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x1a, 0x3a, 0x0a, 0x0c,
+        0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03,
+        0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14,
+        0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76,
+        0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x1a, 0xea, 0x02, 0x0a, 0x04, 0x44, 0x61, 0x74,
+        0x61, 0x12, 0x3a, 0x0a, 0x05, 0x71, 0x75, 0x65, 0x72, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+        0x32, 0x24, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74,
+        0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x61,
+        0x2e, 0x51, 0x75, 0x65, 0x72, 0x79, 0x52, 0x05, 0x71, 0x75, 0x65, 0x72, 0x79, 0x12, 0x3a, 0x0a,
+        0x05, 0x77, 0x68, 0x65, 0x72, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x70,
+        0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72,
+        0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x2e, 0x57, 0x68, 0x65,
+        0x72, 0x65, 0x52, 0x05, 0x77, 0x68, 0x65, 0x72, 0x65, 0x1a, 0x5b, 0x0a, 0x05, 0x51, 0x75, 0x65,
+        0x72, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28,
+        0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65,
+        0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x12, 0x0a, 0x04,
+        0x73, 0x6f, 0x72, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x73, 0x6f, 0x72, 0x74,
+        0x12, 0x14, 0x0a, 0x05, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52,
+        0x05, 0x66, 0x69, 0x65, 0x6c, 0x64, 0x1a, 0x8c, 0x01, 0x0a, 0x05, 0x57, 0x68, 0x65, 0x72, 0x65,
+        0x12, 0x48, 0x0a, 0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+        0x32, 0x30, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74,
+        0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x61,
+        0x2e, 0x57, 0x68, 0x65, 0x72, 0x65, 0x2e, 0x46, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x45, 0x6e, 0x74,
+        0x72, 0x79, 0x52, 0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x1a, 0x39, 0x0a, 0x0b, 0x46, 0x69,
+        0x6c, 0x74, 0x65, 0x72, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79,
+        0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76,
+        0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75,
+        0x65, 0x3a, 0x02, 0x38, 0x01, 0x22, 0xc1, 0x03, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73,
+        0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a,
+        0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x63, 0x6f, 0x64,
+        0x65, 0x12, 0x22, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x43, 0x6f, 0x64,
+        0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+        0x65, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+        0x65, 0x44, 0x65, 0x73, 0x63, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x72, 0x65, 0x73,
+        0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x65, 0x73, 0x63, 0x12, 0x4b, 0x0a, 0x0c, 0x72, 0x65, 0x73,
+        0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32,
+        0x27, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x55,
+        0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70,
+        0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+        0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x1a, 0x80, 0x02, 0x0a, 0x0c, 0x52, 0x65, 0x73, 0x70, 0x6f,
+        0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18,
+        0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x6c,
+        0x69, 0x6d, 0x69, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69,
+        0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x05,
+        0x52, 0x05, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x6f, 0x74, 0x61, 0x6c,
+        0x50, 0x61, 0x67, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x74, 0x6f, 0x74, 0x61,
+        0x6c, 0x50, 0x61, 0x67, 0x65, 0x12, 0x4c, 0x0a, 0x08, 0x6c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65,
+        0x72, 0x18, 0x05, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x30, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
+        0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f,
+        0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61,
+        0x2e, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x08, 0x6c, 0x69, 0x73, 0x74, 0x55,
+        0x73, 0x65, 0x72, 0x1a, 0x44, 0x0a, 0x08, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x12,
+        0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12,
+        0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+        0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20,
+        0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0xcc, 0x02, 0x0a, 0x11, 0x55, 0x70,
+        0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+        0x3f, 0x0a, 0x07, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+        0x32, 0x25, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55,
+        0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x48, 0x65, 0x61, 0x64, 0x65,
+        0x72, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x07, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73,
+        0x12, 0x35, 0x0a, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21,
+        0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
+        0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x55, 0x73, 0x65,
+        0x72, 0x52, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x1a, 0x3a, 0x0a, 0x0c, 0x48, 0x65, 0x61, 0x64, 0x65,
+        0x72, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01,
+        0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c,
+        0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a,
+        0x02, 0x38, 0x01, 0x1a, 0x82, 0x01, 0x0a, 0x08, 0x44, 0x61, 0x74, 0x61, 0x55, 0x73, 0x65, 0x72,
+        0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
+        0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+        0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03,
+        0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61,
+        0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61,
+        0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x20, 0x0a, 0x0b, 0x6e, 0x65, 0x77, 0x50, 0x61, 0x73,
+        0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x6e, 0x65, 0x77,
+        0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0xdc, 0x01, 0x0a, 0x12, 0x55, 0x70, 0x64,
+        0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+        0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x63,
+        0x6f, 0x64, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x43,
+        0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f,
+        0x6e, 0x73, 0x65, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f,
+        0x6e, 0x73, 0x65, 0x44, 0x65, 0x73, 0x63, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x72,
+        0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x65, 0x73, 0x63, 0x12, 0x4a, 0x0a, 0x0c, 0x72,
+        0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28,
+        0x0b, 0x32, 0x26, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+        0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x73,
+        0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f,
+        0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x1a, 0x1e, 0x0a, 0x0c, 0x52, 0x65, 0x73, 0x70, 0x6f,
+        0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+        0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0xe3, 0x01, 0x0a, 0x11, 0x44, 0x65, 0x6c, 0x65,
+        0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3f, 0x0a,
+        0x07, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x25,
+        0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65,
+        0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73,
+        0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x07, 0x68, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73, 0x12, 0x35,
+        0x0a, 0x04, 0x62, 0x6f, 0x64, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x70,
+        0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52,
+        0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x55, 0x73, 0x65, 0x72, 0x52,
+        0x04, 0x62, 0x6f, 0x64, 0x79, 0x1a, 0x3a, 0x0a, 0x0c, 0x48, 0x65, 0x61, 0x64, 0x65, 0x72, 0x73,
+        0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01,
+        0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65,
+        0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38,
+        0x01, 0x1a, 0x1a, 0x0a, 0x08, 0x44, 0x61, 0x74, 0x61, 0x55, 0x73, 0x65, 0x72, 0x12, 0x0e, 0x0a,
+        0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0xdc, 0x01,
+        0x0a, 0x12, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70,
+        0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01,
+        0x28, 0x0d, 0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x70,
+        0x6f, 0x6e, 0x73, 0x65, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c,
+        0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x22, 0x0a, 0x0c,
+        0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x65, 0x73, 0x63, 0x18, 0x03, 0x20, 0x01,
+        0x28, 0x09, 0x52, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x65, 0x73, 0x63,
+        0x12, 0x4a, 0x0a, 0x0c, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61,
+        0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x44,
+        0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+        0x65, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x0c,
+        0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x1a, 0x1e, 0x0a, 0x0c,
+        0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x0e, 0x0a, 0x02,
+        0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x32, 0x87, 0x03, 0x0a,
+        0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x5d, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55,
+        0x73, 0x65, 0x72, 0x12, 0x18, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61,
+        0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e,
+        0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
+        0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1a, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x14,
+        0x3a, 0x01, 0x2a, 0x22, 0x0f, 0x2f, 0x76, 0x31, 0x2f, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x2d,
+        0x75, 0x73, 0x65, 0x72, 0x12, 0x62, 0x0a, 0x0b, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x55,
+        0x73, 0x65, 0x72, 0x12, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x4c,
+        0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a,
+        0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73,
+        0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1c, 0x82, 0xd3, 0xe4, 0x93,
+        0x02, 0x16, 0x3a, 0x01, 0x2a, 0x22, 0x11, 0x2f, 0x76, 0x31, 0x2f, 0x67, 0x65, 0x74, 0x2d, 0x6c,
+        0x69, 0x73, 0x74, 0x2d, 0x75, 0x73, 0x65, 0x72, 0x12, 0x5d, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61,
+        0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x18, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55,
+        0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+        0x1a, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55,
+        0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1a, 0x82, 0xd3, 0xe4,
+        0x93, 0x02, 0x14, 0x3a, 0x01, 0x2a, 0x22, 0x0f, 0x2f, 0x76, 0x31, 0x2f, 0x75, 0x70, 0x64, 0x61,
+        0x74, 0x65, 0x2d, 0x75, 0x73, 0x65, 0x72, 0x12, 0x5d, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74,
+        0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x18, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x44, 0x65,
+        0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+        0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73,
+        0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x1a, 0x82, 0xd3, 0xe4, 0x93,
+        0x02, 0x14, 0x3a, 0x01, 0x2a, 0x22, 0x0f, 0x2f, 0x76, 0x31, 0x2f, 0x64, 0x65, 0x6c, 0x65, 0x74,
+        0x65, 0x2d, 0x75, 0x73, 0x65, 0x72, 0x42, 0x0f, 0x5a, 0x0d, 0x67, 0x72, 0x70, 0x63, 0x2f, 0x70,
+        0x62, 0x2f, 0x76, 0x31, 0x3b, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+}
+
+var (
+        file_v1_user_proto_rawDescOnce sync.Once
+        file_v1_user_proto_rawDescData = file_v1_user_proto_rawDesc
+)
+
+func file_v1_user_proto_rawDescGZIP() []byte <span class="cov0" title="0">{
+        file_v1_user_proto_rawDescOnce.Do(func() </span><span class="cov0" title="0">{
+                file_v1_user_proto_rawDescData = protoimpl.X.CompressGZIP(file_v1_user_proto_rawDescData)
+        }</span>)
+        <span class="cov0" title="0">return file_v1_user_proto_rawDescData</span>
+}
+
+var file_v1_user_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
+var file_v1_user_proto_goTypes = []any{
+        (*CreateUserRequest)(nil),                         // 0: proto.CreateUserRequest
+        (*CreateUserResponse)(nil),                        // 1: proto.CreateUserResponse
+        (*GetListUserRequest)(nil),                        // 2: proto.GetListUserRequest
+        (*GetListUserResponse)(nil),                       // 3: proto.GetListUserResponse
+        (*UpdateUserRequest)(nil),                         // 4: proto.UpdateUserRequest
+        (*UpdateUserResponse)(nil),                        // 5: proto.UpdateUserResponse
+        (*DeleteUserRequest)(nil),                         // 6: proto.DeleteUserRequest
+        (*DeleteUserResponse)(nil),                        // 7: proto.DeleteUserResponse
+        nil,                                               // 8: proto.CreateUserRequest.HeadersEntry
+        (*CreateUserRequest_DataUser)(nil),                // 9: proto.CreateUserRequest.DataUser
+        (*CreateUserResponse_ResponseData)(nil),           // 10: proto.CreateUserResponse.ResponseData
+        nil,                                               // 11: proto.GetListUserRequest.HeadersEntry
+        (*GetListUserRequest_Data)(nil),                   // 12: proto.GetListUserRequest.Data
+        (*GetListUserRequest_Data_Query)(nil),             // 13: proto.GetListUserRequest.Data.Query
+        (*GetListUserRequest_Data_Where)(nil),             // 14: proto.GetListUserRequest.Data.Where
+        nil,                                               // 15: proto.GetListUserRequest.Data.Where.FilterEntry
+        (*GetListUserResponse_ResponseData)(nil),          // 16: proto.GetListUserResponse.ResponseData
+        (*GetListUserResponse_ResponseData_ListUser)(nil), // 17: proto.GetListUserResponse.ResponseData.ListUser
+        nil,                                     // 18: proto.UpdateUserRequest.HeadersEntry
+        (*UpdateUserRequest_DataUser)(nil),      // 19: proto.UpdateUserRequest.DataUser
+        (*UpdateUserResponse_ResponseData)(nil), // 20: proto.UpdateUserResponse.ResponseData
+        nil,                                     // 21: proto.DeleteUserRequest.HeadersEntry
+        (*DeleteUserRequest_DataUser)(nil),      // 22: proto.DeleteUserRequest.DataUser
+        (*DeleteUserResponse_ResponseData)(nil), // 23: proto.DeleteUserResponse.ResponseData
+}
+var file_v1_user_proto_depIdxs = []int32{
+        8,  // 0: proto.CreateUserRequest.headers:type_name -&gt; proto.CreateUserRequest.HeadersEntry
+        9,  // 1: proto.CreateUserRequest.body:type_name -&gt; proto.CreateUserRequest.DataUser
+        10, // 2: proto.CreateUserResponse.responseData:type_name -&gt; proto.CreateUserResponse.ResponseData
+        11, // 3: proto.GetListUserRequest.headers:type_name -&gt; proto.GetListUserRequest.HeadersEntry
+        12, // 4: proto.GetListUserRequest.body:type_name -&gt; proto.GetListUserRequest.Data
+        16, // 5: proto.GetListUserResponse.responseData:type_name -&gt; proto.GetListUserResponse.ResponseData
+        18, // 6: proto.UpdateUserRequest.headers:type_name -&gt; proto.UpdateUserRequest.HeadersEntry
+        19, // 7: proto.UpdateUserRequest.body:type_name -&gt; proto.UpdateUserRequest.DataUser
+        20, // 8: proto.UpdateUserResponse.responseData:type_name -&gt; proto.UpdateUserResponse.ResponseData
+        21, // 9: proto.DeleteUserRequest.headers:type_name -&gt; proto.DeleteUserRequest.HeadersEntry
+        22, // 10: proto.DeleteUserRequest.body:type_name -&gt; proto.DeleteUserRequest.DataUser
+        23, // 11: proto.DeleteUserResponse.responseData:type_name -&gt; proto.DeleteUserResponse.ResponseData
+        13, // 12: proto.GetListUserRequest.Data.query:type_name -&gt; proto.GetListUserRequest.Data.Query
+        14, // 13: proto.GetListUserRequest.Data.where:type_name -&gt; proto.GetListUserRequest.Data.Where
+        15, // 14: proto.GetListUserRequest.Data.Where.filter:type_name -&gt; proto.GetListUserRequest.Data.Where.FilterEntry
+        17, // 15: proto.GetListUserResponse.ResponseData.listUser:type_name -&gt; proto.GetListUserResponse.ResponseData.ListUser
+        0,  // 16: proto.User.CreateUser:input_type -&gt; proto.CreateUserRequest
+        2,  // 17: proto.User.GetListUser:input_type -&gt; proto.GetListUserRequest
+        4,  // 18: proto.User.UpdateUser:input_type -&gt; proto.UpdateUserRequest
+        6,  // 19: proto.User.DeleteUser:input_type -&gt; proto.DeleteUserRequest
+        1,  // 20: proto.User.CreateUser:output_type -&gt; proto.CreateUserResponse
+        3,  // 21: proto.User.GetListUser:output_type -&gt; proto.GetListUserResponse
+        5,  // 22: proto.User.UpdateUser:output_type -&gt; proto.UpdateUserResponse
+        7,  // 23: proto.User.DeleteUser:output_type -&gt; proto.DeleteUserResponse
+        20, // [20:24] is the sub-list for method output_type
+        16, // [16:20] is the sub-list for method input_type
+        16, // [16:16] is the sub-list for extension type_name
+        16, // [16:16] is the sub-list for extension extendee
+        0,  // [0:16] is the sub-list for field type_name
+}
+
+func init() <span class="cov8" title="1">{ file_v1_user_proto_init() }</span>
+func file_v1_user_proto_init() <span class="cov8" title="1">{
+        if File_v1_user_proto != nil </span><span class="cov0" title="0">{
+                return
+        }</span>
+        <span class="cov8" title="1">type x struct{}
+        out := protoimpl.TypeBuilder{
+                File: protoimpl.DescBuilder{
+                        GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
+                        RawDescriptor: file_v1_user_proto_rawDesc,
+                        NumEnums:      0,
+                        NumMessages:   24,
+                        NumExtensions: 0,
+                        NumServices:   1,
+                },
+                GoTypes:           file_v1_user_proto_goTypes,
+                DependencyIndexes: file_v1_user_proto_depIdxs,
+                MessageInfos:      file_v1_user_proto_msgTypes,
+        }.Build()
+        File_v1_user_proto = out.File
+        file_v1_user_proto_rawDesc = nil
+        file_v1_user_proto_goTypes = nil
+        file_v1_user_proto_depIdxs = nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file9" style="display: none">// Code generated by protoc-gen-grpc-gateway. DO NOT EDIT.
+// source: v1/user.proto
+
+/*
+Package pb is a reverse proxy.
+
+It translates gRPC into RESTful JSON APIs.
+*/
+package pb
+
+import (
+        "context"
+        "errors"
+        "io"
+        "net/http"
+
+        "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+        "github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
+        "google.golang.org/grpc"
+        "google.golang.org/grpc/codes"
+        "google.golang.org/grpc/grpclog"
+        "google.golang.org/grpc/metadata"
+        "google.golang.org/grpc/status"
+        "google.golang.org/protobuf/proto"
+)
+
+// Suppress "imported and not used" errors
+var (
+        _ codes.Code
+        _ io.Reader
+        _ status.Status
+        _ = errors.New
+        _ = runtime.String
+        _ = utilities.NewDoubleArray
+        _ = metadata.Join
+)
+
+func request_User_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, client UserClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) <span class="cov0" title="0">{
+        var (
+                protoReq CreateUserRequest
+                metadata runtime.ServerMetadata
+        )
+        if err := marshaler.NewDecoder(req.Body).Decode(&amp;protoReq); err != nil &amp;&amp; !errors.Is(err, io.EOF) </span><span class="cov0" title="0">{
+                return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+        }</span>
+        <span class="cov0" title="0">msg, err := client.CreateUser(ctx, &amp;protoReq, grpc.Header(&amp;metadata.HeaderMD), grpc.Trailer(&amp;metadata.TrailerMD))
+        return msg, metadata, err</span>
+}
+
+func local_request_User_CreateUser_0(ctx context.Context, marshaler runtime.Marshaler, server UserServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) <span class="cov0" title="0">{
+        var (
+                protoReq CreateUserRequest
+                metadata runtime.ServerMetadata
+        )
+        if err := marshaler.NewDecoder(req.Body).Decode(&amp;protoReq); err != nil &amp;&amp; !errors.Is(err, io.EOF) </span><span class="cov0" title="0">{
+                return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+        }</span>
+        <span class="cov0" title="0">msg, err := server.CreateUser(ctx, &amp;protoReq)
+        return msg, metadata, err</span>
+}
+
+func request_User_GetListUser_0(ctx context.Context, marshaler runtime.Marshaler, client UserClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) <span class="cov0" title="0">{
+        var (
+                protoReq GetListUserRequest
+                metadata runtime.ServerMetadata
+        )
+        if err := marshaler.NewDecoder(req.Body).Decode(&amp;protoReq); err != nil &amp;&amp; !errors.Is(err, io.EOF) </span><span class="cov0" title="0">{
+                return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+        }</span>
+        <span class="cov0" title="0">msg, err := client.GetListUser(ctx, &amp;protoReq, grpc.Header(&amp;metadata.HeaderMD), grpc.Trailer(&amp;metadata.TrailerMD))
+        return msg, metadata, err</span>
+}
+
+func local_request_User_GetListUser_0(ctx context.Context, marshaler runtime.Marshaler, server UserServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) <span class="cov0" title="0">{
+        var (
+                protoReq GetListUserRequest
+                metadata runtime.ServerMetadata
+        )
+        if err := marshaler.NewDecoder(req.Body).Decode(&amp;protoReq); err != nil &amp;&amp; !errors.Is(err, io.EOF) </span><span class="cov0" title="0">{
+                return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+        }</span>
+        <span class="cov0" title="0">msg, err := server.GetListUser(ctx, &amp;protoReq)
+        return msg, metadata, err</span>
+}
+
+func request_User_UpdateUser_0(ctx context.Context, marshaler runtime.Marshaler, client UserClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) <span class="cov0" title="0">{
+        var (
+                protoReq UpdateUserRequest
+                metadata runtime.ServerMetadata
+        )
+        if err := marshaler.NewDecoder(req.Body).Decode(&amp;protoReq); err != nil &amp;&amp; !errors.Is(err, io.EOF) </span><span class="cov0" title="0">{
+                return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+        }</span>
+        <span class="cov0" title="0">msg, err := client.UpdateUser(ctx, &amp;protoReq, grpc.Header(&amp;metadata.HeaderMD), grpc.Trailer(&amp;metadata.TrailerMD))
+        return msg, metadata, err</span>
+}
+
+func local_request_User_UpdateUser_0(ctx context.Context, marshaler runtime.Marshaler, server UserServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) <span class="cov0" title="0">{
+        var (
+                protoReq UpdateUserRequest
+                metadata runtime.ServerMetadata
+        )
+        if err := marshaler.NewDecoder(req.Body).Decode(&amp;protoReq); err != nil &amp;&amp; !errors.Is(err, io.EOF) </span><span class="cov0" title="0">{
+                return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+        }</span>
+        <span class="cov0" title="0">msg, err := server.UpdateUser(ctx, &amp;protoReq)
+        return msg, metadata, err</span>
+}
+
+func request_User_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, client UserClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) <span class="cov0" title="0">{
+        var (
+                protoReq DeleteUserRequest
+                metadata runtime.ServerMetadata
+        )
+        if err := marshaler.NewDecoder(req.Body).Decode(&amp;protoReq); err != nil &amp;&amp; !errors.Is(err, io.EOF) </span><span class="cov0" title="0">{
+                return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+        }</span>
+        <span class="cov0" title="0">msg, err := client.DeleteUser(ctx, &amp;protoReq, grpc.Header(&amp;metadata.HeaderMD), grpc.Trailer(&amp;metadata.TrailerMD))
+        return msg, metadata, err</span>
+}
+
+func local_request_User_DeleteUser_0(ctx context.Context, marshaler runtime.Marshaler, server UserServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) <span class="cov0" title="0">{
+        var (
+                protoReq DeleteUserRequest
+                metadata runtime.ServerMetadata
+        )
+        if err := marshaler.NewDecoder(req.Body).Decode(&amp;protoReq); err != nil &amp;&amp; !errors.Is(err, io.EOF) </span><span class="cov0" title="0">{
+                return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+        }</span>
+        <span class="cov0" title="0">msg, err := server.DeleteUser(ctx, &amp;protoReq)
+        return msg, metadata, err</span>
+}
+
+// RegisterUserHandlerServer registers the http handlers for service User to "mux".
+// UnaryRPC     :call UserServer directly.
+// StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterUserHandlerFromEndpoint instead.
+// GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
+func RegisterUserHandlerServer(ctx context.Context, mux *runtime.ServeMux, server UserServer) error <span class="cov0" title="0">{
+        mux.Handle(http.MethodPost, pattern_User_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) </span><span class="cov0" title="0">{
+                ctx, cancel := context.WithCancel(req.Context())
+                defer cancel()
+                var stream runtime.ServerTransportStream
+                ctx = grpc.NewContextWithServerTransportStream(ctx, &amp;stream)
+                inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+                annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.User/CreateUser", runtime.WithHTTPPathPattern("/v1/create-user"))
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">resp, md, err := local_request_User_CreateUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+                md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+                annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">forward_User_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)</span>
+        })
+        <span class="cov0" title="0">mux.Handle(http.MethodPost, pattern_User_GetListUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) </span><span class="cov0" title="0">{
+                ctx, cancel := context.WithCancel(req.Context())
+                defer cancel()
+                var stream runtime.ServerTransportStream
+                ctx = grpc.NewContextWithServerTransportStream(ctx, &amp;stream)
+                inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+                annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.User/GetListUser", runtime.WithHTTPPathPattern("/v1/get-list-user"))
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">resp, md, err := local_request_User_GetListUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+                md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+                annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">forward_User_GetListUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)</span>
+        })
+        <span class="cov0" title="0">mux.Handle(http.MethodPost, pattern_User_UpdateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) </span><span class="cov0" title="0">{
+                ctx, cancel := context.WithCancel(req.Context())
+                defer cancel()
+                var stream runtime.ServerTransportStream
+                ctx = grpc.NewContextWithServerTransportStream(ctx, &amp;stream)
+                inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+                annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.User/UpdateUser", runtime.WithHTTPPathPattern("/v1/update-user"))
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">resp, md, err := local_request_User_UpdateUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+                md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+                annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">forward_User_UpdateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)</span>
+        })
+        <span class="cov0" title="0">mux.Handle(http.MethodPost, pattern_User_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) </span><span class="cov0" title="0">{
+                ctx, cancel := context.WithCancel(req.Context())
+                defer cancel()
+                var stream runtime.ServerTransportStream
+                ctx = grpc.NewContextWithServerTransportStream(ctx, &amp;stream)
+                inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+                annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.User/DeleteUser", runtime.WithHTTPPathPattern("/v1/delete-user"))
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">resp, md, err := local_request_User_DeleteUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+                md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+                annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">forward_User_DeleteUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)</span>
+        })
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+// RegisterUserHandlerFromEndpoint is same as RegisterUserHandler but
+// automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+func RegisterUserHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) <span class="cov0" title="0">{
+        conn, err := grpc.NewClient(endpoint, opts...)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                if err != nil </span><span class="cov0" title="0">{
+                        if cerr := conn.Close(); cerr != nil </span><span class="cov0" title="0">{
+                                grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
+                        }</span>
+                        <span class="cov0" title="0">return</span>
+                }
+                <span class="cov0" title="0">go func() </span><span class="cov0" title="0">{
+                        &lt;-ctx.Done()
+                        if cerr := conn.Close(); cerr != nil </span><span class="cov0" title="0">{
+                                grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
+                        }</span>
+                }()
+        }()
+        <span class="cov0" title="0">return RegisterUserHandler(ctx, mux, conn)</span>
+}
+
+// RegisterUserHandler registers the http handlers for service User to "mux".
+// The handlers forward requests to the grpc endpoint over "conn".
+func RegisterUserHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error <span class="cov0" title="0">{
+        return RegisterUserHandlerClient(ctx, mux, NewUserClient(conn))
+}</span>
+
+// RegisterUserHandlerClient registers the http handlers for service User
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "UserClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "UserClient"
+// doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
+// "UserClient" to call the correct interceptors. This client ignores the HTTP middlewares.
+func RegisterUserHandlerClient(ctx context.Context, mux *runtime.ServeMux, client UserClient) error <span class="cov0" title="0">{
+        mux.Handle(http.MethodPost, pattern_User_CreateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) </span><span class="cov0" title="0">{
+                ctx, cancel := context.WithCancel(req.Context())
+                defer cancel()
+                inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+                annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/proto.User/CreateUser", runtime.WithHTTPPathPattern("/v1/create-user"))
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">resp, md, err := request_User_CreateUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+                annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">forward_User_CreateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)</span>
+        })
+        <span class="cov0" title="0">mux.Handle(http.MethodPost, pattern_User_GetListUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) </span><span class="cov0" title="0">{
+                ctx, cancel := context.WithCancel(req.Context())
+                defer cancel()
+                inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+                annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/proto.User/GetListUser", runtime.WithHTTPPathPattern("/v1/get-list-user"))
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">resp, md, err := request_User_GetListUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+                annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">forward_User_GetListUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)</span>
+        })
+        <span class="cov0" title="0">mux.Handle(http.MethodPost, pattern_User_UpdateUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) </span><span class="cov0" title="0">{
+                ctx, cancel := context.WithCancel(req.Context())
+                defer cancel()
+                inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+                annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/proto.User/UpdateUser", runtime.WithHTTPPathPattern("/v1/update-user"))
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">resp, md, err := request_User_UpdateUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+                annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">forward_User_UpdateUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)</span>
+        })
+        <span class="cov0" title="0">mux.Handle(http.MethodPost, pattern_User_DeleteUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) </span><span class="cov0" title="0">{
+                ctx, cancel := context.WithCancel(req.Context())
+                defer cancel()
+                inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+                annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/proto.User/DeleteUser", runtime.WithHTTPPathPattern("/v1/delete-user"))
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">resp, md, err := request_User_DeleteUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+                annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+                if err != nil </span><span class="cov0" title="0">{
+                        runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+                        return
+                }</span>
+                <span class="cov0" title="0">forward_User_DeleteUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)</span>
+        })
+        <span class="cov0" title="0">return nil</span>
+}
+
+var (
+        pattern_User_CreateUser_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "create-user"}, ""))
+        pattern_User_GetListUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "get-list-user"}, ""))
+        pattern_User_UpdateUser_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "update-user"}, ""))
+        pattern_User_DeleteUser_0  = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "delete-user"}, ""))
+)
+
+var (
+        forward_User_CreateUser_0  = runtime.ForwardResponseMessage
+        forward_User_GetListUser_0 = runtime.ForwardResponseMessage
+        forward_User_UpdateUser_0  = runtime.ForwardResponseMessage
+        forward_User_DeleteUser_0  = runtime.ForwardResponseMessage
+)
+</pre>
+		
+		<pre class="file" id="file10" style="display: none">// Code generated by protoc-gen-go-grpc. DO NOT EDIT.
+// versions:
+// - protoc-gen-go-grpc v1.5.1
+// - protoc             v5.28.3
+// source: v1/user.proto
+
+package pb
+
+import (
+        context "context"
+        grpc "google.golang.org/grpc"
+        codes "google.golang.org/grpc/codes"
+        status "google.golang.org/grpc/status"
+)
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+// Requires gRPC-Go v1.64.0 or later.
+const _ = grpc.SupportPackageIsVersion9
+
+const (
+        User_CreateUser_FullMethodName  = "/proto.User/CreateUser"
+        User_GetListUser_FullMethodName = "/proto.User/GetListUser"
+        User_UpdateUser_FullMethodName  = "/proto.User/UpdateUser"
+        User_DeleteUser_FullMethodName  = "/proto.User/DeleteUser"
+)
+
+// UserClient is the client API for User service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type UserClient interface {
+        CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+        GetListUser(ctx context.Context, in *GetListUserRequest, opts ...grpc.CallOption) (*GetListUserResponse, error)
+        UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
+        DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
+}
+
+type userClient struct {
+        cc grpc.ClientConnInterface
+}
+
+func NewUserClient(cc grpc.ClientConnInterface) UserClient <span class="cov0" title="0">{
+        return &amp;userClient{cc}
+}</span>
+
+func (c *userClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) <span class="cov0" title="0">{
+        cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+        out := new(CreateUserResponse)
+        err := c.cc.Invoke(ctx, User_CreateUser_FullMethodName, in, out, cOpts...)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">return out, nil</span>
+}
+
+func (c *userClient) GetListUser(ctx context.Context, in *GetListUserRequest, opts ...grpc.CallOption) (*GetListUserResponse, error) <span class="cov0" title="0">{
+        cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+        out := new(GetListUserResponse)
+        err := c.cc.Invoke(ctx, User_GetListUser_FullMethodName, in, out, cOpts...)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">return out, nil</span>
+}
+
+func (c *userClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) <span class="cov0" title="0">{
+        cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+        out := new(UpdateUserResponse)
+        err := c.cc.Invoke(ctx, User_UpdateUser_FullMethodName, in, out, cOpts...)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">return out, nil</span>
+}
+
+func (c *userClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error) <span class="cov0" title="0">{
+        cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+        out := new(DeleteUserResponse)
+        err := c.cc.Invoke(ctx, User_DeleteUser_FullMethodName, in, out, cOpts...)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">return out, nil</span>
+}
+
+// UserServer is the server API for User service.
+// All implementations should embed UnimplementedUserServer
+// for forward compatibility.
+type UserServer interface {
+        CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+        GetListUser(context.Context, *GetListUserRequest) (*GetListUserResponse, error)
+        UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
+        DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
+}
+
+// UnimplementedUserServer should be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedUserServer struct{}
+
+func (UnimplementedUserServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) <span class="cov0" title="0">{
+        return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}</span>
+func (UnimplementedUserServer) GetListUser(context.Context, *GetListUserRequest) (*GetListUserResponse, error) <span class="cov0" title="0">{
+        return nil, status.Errorf(codes.Unimplemented, "method GetListUser not implemented")
+}</span>
+func (UnimplementedUserServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) <span class="cov0" title="0">{
+        return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
+}</span>
+func (UnimplementedUserServer) DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error) <span class="cov0" title="0">{
+        return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
+}</span>
+func (UnimplementedUserServer) testEmbeddedByValue() {<span class="cov0" title="0">}</span>
+
+// UnsafeUserServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserServer will
+// result in compilation errors.
+type UnsafeUserServer interface {
+        mustEmbedUnimplementedUserServer()
+}
+
+func RegisterUserServer(s grpc.ServiceRegistrar, srv UserServer) <span class="cov0" title="0">{
+        // If the following call pancis, it indicates UnimplementedUserServer was
+        // embedded by pointer and is nil.  This will cause panics if an
+        // unimplemented method is ever invoked, so we test this at initialization
+        // time to prevent it from happening at runtime later due to I/O.
+        if t, ok := srv.(interface{ testEmbeddedByValue() }); ok </span><span class="cov0" title="0">{
+                t.testEmbeddedByValue()
+        }</span>
+        <span class="cov0" title="0">s.RegisterService(&amp;User_ServiceDesc, srv)</span>
+}
+
+func _User_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) <span class="cov0" title="0">{
+        in := new(CreateUserRequest)
+        if err := dec(in); err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">if interceptor == nil </span><span class="cov0" title="0">{
+                return srv.(UserServer).CreateUser(ctx, in)
+        }</span>
+        <span class="cov0" title="0">info := &amp;grpc.UnaryServerInfo{
+                Server:     srv,
+                FullMethod: User_CreateUser_FullMethodName,
+        }
+        handler := func(ctx context.Context, req interface{}) (interface{}, error) </span><span class="cov0" title="0">{
+                return srv.(UserServer).CreateUser(ctx, req.(*CreateUserRequest))
+        }</span>
+        <span class="cov0" title="0">return interceptor(ctx, in, info, handler)</span>
+}
+
+func _User_GetListUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) <span class="cov0" title="0">{
+        in := new(GetListUserRequest)
+        if err := dec(in); err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">if interceptor == nil </span><span class="cov0" title="0">{
+                return srv.(UserServer).GetListUser(ctx, in)
+        }</span>
+        <span class="cov0" title="0">info := &amp;grpc.UnaryServerInfo{
+                Server:     srv,
+                FullMethod: User_GetListUser_FullMethodName,
+        }
+        handler := func(ctx context.Context, req interface{}) (interface{}, error) </span><span class="cov0" title="0">{
+                return srv.(UserServer).GetListUser(ctx, req.(*GetListUserRequest))
+        }</span>
+        <span class="cov0" title="0">return interceptor(ctx, in, info, handler)</span>
+}
+
+func _User_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) <span class="cov0" title="0">{
+        in := new(UpdateUserRequest)
+        if err := dec(in); err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">if interceptor == nil </span><span class="cov0" title="0">{
+                return srv.(UserServer).UpdateUser(ctx, in)
+        }</span>
+        <span class="cov0" title="0">info := &amp;grpc.UnaryServerInfo{
+                Server:     srv,
+                FullMethod: User_UpdateUser_FullMethodName,
+        }
+        handler := func(ctx context.Context, req interface{}) (interface{}, error) </span><span class="cov0" title="0">{
+                return srv.(UserServer).UpdateUser(ctx, req.(*UpdateUserRequest))
+        }</span>
+        <span class="cov0" title="0">return interceptor(ctx, in, info, handler)</span>
+}
+
+func _User_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) <span class="cov0" title="0">{
+        in := new(DeleteUserRequest)
+        if err := dec(in); err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">if interceptor == nil </span><span class="cov0" title="0">{
+                return srv.(UserServer).DeleteUser(ctx, in)
+        }</span>
+        <span class="cov0" title="0">info := &amp;grpc.UnaryServerInfo{
+                Server:     srv,
+                FullMethod: User_DeleteUser_FullMethodName,
+        }
+        handler := func(ctx context.Context, req interface{}) (interface{}, error) </span><span class="cov0" title="0">{
+                return srv.(UserServer).DeleteUser(ctx, req.(*DeleteUserRequest))
+        }</span>
+        <span class="cov0" title="0">return interceptor(ctx, in, info, handler)</span>
+}
+
+// User_ServiceDesc is the grpc.ServiceDesc for User service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var User_ServiceDesc = grpc.ServiceDesc{
+        ServiceName: "proto.User",
+        HandlerType: (*UserServer)(nil),
+        Methods: []grpc.MethodDesc{
+                {
+                        MethodName: "CreateUser",
+                        Handler:    _User_CreateUser_Handler,
+                },
+                {
+                        MethodName: "GetListUser",
+                        Handler:    _User_GetListUser_Handler,
+                },
+                {
+                        MethodName: "UpdateUser",
+                        Handler:    _User_UpdateUser_Handler,
+                },
+                {
+                        MethodName: "DeleteUser",
+                        Handler:    _User_DeleteUser_Handler,
+                },
+        },
+        Streams:  []grpc.StreamDesc{},
+        Metadata: "v1/user.proto",
+}
+</pre>
+		
+		<pre class="file" id="file11" style="display: none">package database
+
+import (
+        "context"
+        "fmt"
+        "grpc/pkg/model"
+        "os"
+        "time"
+
+        "github.com/jinzhu/gorm"
+        _ "github.com/jinzhu/gorm/dialects/postgres"
+)
+
+var DbGorm *gorm.DB
+
+func InitGorm(ctx context.Context) (*gorm.DB, error) <span class="cov0" title="0">{
+        fmt.Println("===== Init DB =====")
+        connectionString := os.Getenv("GORM_CONNECTION")
+        db, err := gorm.Open("postgres", connectionString)
+        db.LogMode(true)
+        if err != nil || db.Error != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">sqlDB := db.DB()
+
+        sqlDB.SetMaxIdleConns(10)
+        sqlDB.SetMaxOpenConns(100)
+        sqlDB.SetConnMaxLifetime(time.Hour)
+
+        if err != nil || db.Error != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">DbGorm = db
+        RunMigrations(DbGorm)
+        return DbGorm, nil</span>
+}
+
+func RunMigrations(db *gorm.DB) <span class="cov0" title="0">{
+        db.AutoMigrate(model.User{})
+}</span>
+</pre>
+		
+		<pre class="file" id="file12" style="display: none">package pkg
+
+import (
+        "os"
+        "strings"
+)
+
+func Getenv(key string) (fallback string) <span class="cov0" title="0">{
+        var value string
+        if key == "" </span><span class="cov0" title="0">{
+                return ""
+        }</span> else<span class="cov0" title="0"> {
+                value = os.Getenv(key)
+                if len(value) == 0 </span><span class="cov0" title="0">{
+                        return ""
+                }</span>
+                <span class="cov0" title="0">return value</span>
+        }
+}
+
+func GetEnvCors(key string) (fallback []string) <span class="cov0" title="0">{
+        value := Getenv(key)
+        return strings.Split(value, ",")
+}</span>
+</pre>
+		
+		<pre class="file" id="file13" style="display: none">package logger
+
+import (
+        "context"
+        "encoding/json"
+        "fmt"
+        "net/http"
+        "os"
+        "runtime"
+        "strings"
+        "time"
+
+        pkg "grpc/pkg"
+
+        logrus "github.com/sirupsen/logrus"
+)
+
+var (
+        log *logrus.Entry
+)
+
+func Configure() <span class="cov0" title="0">{
+        format := pkg.Getenv("LOG_FORMAT")
+        switch format </span>{
+        case "json":<span class="cov0" title="0">
+                logrus.SetFormatter(&amp;logrus.JSONFormatter{})</span>
+        default:<span class="cov0" title="0">
+                logrus.SetFormatter(&amp;logrus.TextFormatter{})</span>
+        }
+
+        <span class="cov0" title="0">lvl := strings.ToLower(pkg.Getenv("LOG_LEVEL"))
+        switch lvl </span>{
+        case "debug":<span class="cov0" title="0">
+                logrus.SetLevel(logrus.DebugLevel)</span>
+        case "warn":<span class="cov0" title="0">
+                logrus.SetLevel(logrus.WarnLevel)</span>
+        case "trace":<span class="cov0" title="0">
+                logrus.SetLevel(logrus.TraceLevel)</span>
+        case "error":<span class="cov0" title="0">
+                logrus.SetLevel(logrus.ErrorLevel)</span>
+        default:<span class="cov0" title="0">
+                logrus.SetLevel(logrus.InfoLevel)</span>
+        }
+
+        <span class="cov0" title="0">log = logrus.WithField("app", "notification")</span>
+}
+
+func setDefault() <span class="cov0" title="0">{
+        logrus.SetFormatter(&amp;logrus.TextFormatter{})
+        logrus.SetLevel(logrus.DebugLevel)
+        log = logrus.WithField("app", "notification")
+}</span>
+
+func GetLogger(pkg, funcName string) *logrus.Entry <span class="cov0" title="0">{
+        if log == nil </span><span class="cov0" title="0">{
+                setDefault()
+        }</span>
+        <span class="cov0" title="0">return log.WithFields(logrus.Fields{
+                "function": funcName,
+                "package":  pkg,
+        })</span>
+}
+
+func GetLoggerContext(ctx context.Context, pkg, funcName string) *logrus.Entry <span class="cov0" title="0">{
+        if log == nil </span><span class="cov0" title="0">{
+                setDefault()
+        }</span>
+        <span class="cov0" title="0">return log.WithContext(ctx).WithFields(logrus.Fields{
+                "function": funcName,
+                "package":  pkg,
+        })</span>
+}
+
+func SingleTrace(ioFunction string, data map[string]interface{}) <span class="cov0" title="0">{
+        logrus.SetFormatter(loggerFormat())
+        field := logrus.Fields{
+                "data":     data,
+                "function": ioFunction,
+        }
+        log.WithFields(field).Info("traces")
+}</span>
+
+func loggerFormat() *logrus.JSONFormatter <span class="cov0" title="0">{
+        return &amp;logrus.JSONFormatter{
+                FieldMap: logrus.FieldMap{
+                        logrus.FieldKeyTime: "@timestamp",
+                        logrus.FieldKeyMsg:  "message",
+                },
+        }
+}</span>
+
+func GetFunctionName() string <span class="cov0" title="0">{
+        pc, _, _, _ := runtime.Caller(1)
+        return runtime.FuncForPC(pc).Name()
+}</span>
+
+func LogRequest(user string, r *http.Request, body string) <span class="cov0" title="0">{
+        logrus.SetFormatter(loggerFormat())
+
+        field := logrus.Fields{
+                "user":   user,
+                "body":   body,
+                "url":    r.URL.RequestURI(),
+                "device": r.Header.Get("Grpc-metadata-device"),
+        }
+        log.WithFields(field).Println()
+}</span>
+
+func LogResponse(user string, response string) <span class="cov0" title="0">{
+        logrus.SetFormatter(loggerFormat())
+
+        field := logrus.Fields{
+                "user":     user,
+                "response": response,
+        }
+        logrus.WithFields(field).Println()
+}</span>
+
+// EscChar constant
+var EscChar = "\x1B"
+
+// ResetChar constant
+var ResetChar = EscChar + "[0m"
+
+// DateFormat date format
+type DateFormat = string
+
+const (
+        // DefaultDateFormat for Default Date Format
+        DefaultDateFormat DateFormat = "Y-m-d"
+
+        // INDateFormat for Indonesian Date Format
+        INDateFormat = "d-m-Y"
+
+        // DefaultDateTimeFormat for Default Date Time Format
+        DefaultDateTimeFormat = "Y-m-d H:i:s"
+
+        // INDateTimeFormat for Indonesian Date Time Format
+        INDateTimeFormat = "d-m-Y H:i:s"
+
+        // DefaultDateTimeWithTimezoneFormat for Default Date Time Format With Timezone
+        DefaultDateTimeWithTimezoneFormat = "Y-m-d H:i:s TZ"
+
+        // DefaultTimeFormat for Default Time Format
+        DefaultTimeFormat = "H:i:s"
+)
+
+const (
+        // Year4Digits for Years in 4 digits
+        Year4Digits string = "2006"
+
+        // Month2Digits for Months in 2 digits
+        Month2Digits = "01"
+
+        // Day2Digits for Days in 2 digits
+        Day2Digits = "02"
+
+        // Hour2Digits for Hours in 2 digits
+        Hour2Digits = "15"
+
+        // Minute2Digits for Minutes in 2 digits
+        Minute2Digits = "04"
+
+        // Second2Digits for Second in 2 digits
+        Second2Digits = "05"
+
+        // Timezone for Timezone Location
+        Timezone = "MST"
+)
+
+// ErrorStruct object
+type ErrorStruct struct {
+        _error    error
+        _key      string
+        _comments []string
+        _code     int
+
+        File string
+        Line int
+        Fn   string
+}
+
+type LogBaseStruct struct {
+        FunctionName interface{}
+        Request      interface{}
+        Response     interface{}
+}
+
+type SError = *ErrorStruct
+
+type Color int
+
+type ColorType int
+
+const (
+        // FOREGROUND color type
+        FOREGROUND ColorType = 1 + iota
+
+        // BACKGROUND color type
+        BACKGROUND
+)
+
+const (
+        // DEFAULT color
+        DEFAULT Color = 1 + iota
+
+        // BLACK color
+        BLACK
+
+        // RED color
+        RED
+
+        // GREEN color
+        GREEN
+
+        // GREEN color
+        YELLOW
+
+        // BLUE color
+        BLUE
+
+        // MAGENTA color
+        MAGENTA
+
+        // CYAN color
+        CYAN
+
+        // LIGHT_GRAY color
+        LIGHT_GRAY
+
+        // DARK_GRAY color
+        DARK_GRAY
+
+        // LIGHT_RED color
+        LIGHT_RED
+
+        // LIGHT_GREEN color
+        LIGHT_GREEN
+
+        // LIGHT_YELLOW color
+        LIGHT_YELLOW
+
+        // LIGHT_BLUE color
+        LIGHT_BLUE
+
+        // LIGHT_MAGENTA color
+        LIGHT_MAGENTA
+
+        // LIGHT_CYAN color
+        LIGHT_CYAN
+
+        // WHITE color
+        WHITE
+)
+
+// ParseToGoFormat to parsing format to go format
+func ParseToGoFormat(format DateFormat) string <span class="cov0" title="0">{
+        rl := map[string]string{
+                "Y":  Year4Digits,
+                "m":  Month2Digits,
+                "d":  Day2Digits,
+                "H":  Hour2Digits,
+                "i":  Minute2Digits,
+                "s":  Second2Digits,
+                "TZ": Timezone,
+        }
+
+        for k, v := range rl </span><span class="cov0" title="0">{
+                format = strings.ReplaceAll(format, k, v)
+        }</span>
+        <span class="cov0" title="0">return format</span>
+}
+
+// GetStandardFormat function
+func GetStandardFormat() string <span class="cov0" title="0">{
+        return "In %s[%s:%d] %s%s"
+}</span>
+
+// GetStandardColorFormat function
+func GetStandardColorFormat() string <span class="cov0" title="0">{
+        frmt := ""
+        frmt += ApplyForeColor("In", DARK_GRAY) + " "
+        frmt += ApplyForeColor("%s", LIGHT_YELLOW)
+        frmt += ApplyForeColor("[", DARK_GRAY)
+        frmt += ApplyForeColor("%s:%d", MAGENTA)
+        frmt += ApplyForeColor("]", DARK_GRAY)
+        frmt += " %s%s"
+        return frmt
+}</span>
+
+func GetColorCode(c Color, t ColorType) (string, bool) <span class="cov0" title="0">{
+        fcs := map[Color][]string{
+                DEFAULT:       []string{"39", "49"},
+                BLACK:         []string{"30", "40"},
+                RED:           []string{"31", "41"},
+                GREEN:         []string{"32", "42"},
+                YELLOW:        []string{"33", "43"},
+                BLUE:          []string{"34", "44"},
+                MAGENTA:       []string{"35", "45"},
+                CYAN:          []string{"36", "46"},
+                LIGHT_GRAY:    []string{"37", "47"},
+                DARK_GRAY:     []string{"90", "100"},
+                LIGHT_RED:     []string{"91", "101"},
+                LIGHT_GREEN:   []string{"92", "102"},
+                LIGHT_YELLOW:  []string{"93", "103"},
+                LIGHT_BLUE:    []string{"94", "104"},
+                LIGHT_MAGENTA: []string{"95", "105"},
+                LIGHT_CYAN:    []string{"96", "106"},
+                WHITE:         []string{"97", "107"},
+        }
+
+        cc, ok := fcs[c]
+        if ok </span><span class="cov0" title="0">{
+                if t == FOREGROUND </span><span class="cov0" title="0">{
+                        return cc[0], true
+                }</span> else<span class="cov0" title="0"> {
+                        return cc[1], true
+                }</span>
+        }
+        <span class="cov0" title="0">return "", false</span>
+}
+
+func ApplyForeColor(s string, c Color) string <span class="cov0" title="0">{
+        col, ok := GetColorCode(c, FOREGROUND)
+        if ok </span><span class="cov0" title="0">{
+                return EscChar + "[" + col + "m" + s + ResetChar
+        }</span>
+        <span class="cov0" title="0">return s</span>
+}
+
+func getMessage(v interface{}) (string, string) <span class="cov0" title="0">{
+        m := fmt.Sprintf("%v", v)
+        m2 := m
+
+        switch v.(type) </span>{
+        case error:<span class="cov0" title="0">
+                pc, fn, line, _ := runtime.Caller(2)
+                m = fmt.Sprintf(GetStandardFormat(), runtime.FuncForPC(pc).Name(), fn, line, m)
+                m2 = fmt.Sprintf(GetStandardColorFormat(), runtime.FuncForPC(pc).Name(), fn, line, m)
+                break</span>
+
+        case SError:<span class="cov0" title="0">
+                v2 := v.(*ErrorStruct)
+                m = v2.ToFormatedString()
+                m2 = v2.ToFormatedColorString()
+                break</span>
+        }
+
+        <span class="cov0" title="0">if !isLocal() </span><span class="cov0" title="0">{
+                m2 = m
+        }</span>
+
+        <span class="cov0" title="0">return m, m2</span>
+}
+
+// ToFormatedColorString function
+func (ox ErrorStruct) ToFormatedColorString() string <span class="cov0" title="0">{
+        return fmt.Sprintf(GetStandardColorFormat(), ox.fParams()...)
+}</span>
+
+func (ox ErrorStruct) fParams() []interface{} <span class="cov0" title="0">{
+        pars := []interface{}{
+                ox.Fn,
+                ox.File,
+                ox.Line,
+                "",
+                ox.String(),
+        }
+        if ox._comments != nil &amp;&amp; len(ox._comments) &gt; 0 </span><span class="cov0" title="0">{
+                pars[3] = fmt.Sprintf("%s, details: ", ox.Comments())
+        }</span>
+        <span class="cov0" title="0">return pars</span>
+}
+
+// Comments to get error comments
+func (ox ErrorStruct) Comments() string <span class="cov0" title="0">{
+        return strings.Join(ox._comments, " &lt; ")
+}</span>
+
+// String function
+func (ox ErrorStruct) String() string <span class="cov0" title="0">{
+        return fmt.Sprintf("%v", ox._error)
+}</span>
+
+// ToFormatedString function
+func (ox ErrorStruct) ToFormatedString() string <span class="cov0" title="0">{
+        return fmt.Sprintf(GetStandardFormat(), ox.fParams()...)
+}</span>
+
+func print(msg string) <span class="cov0" title="0">{
+        fmt.Fprintf(os.Stdout, "[%s] %s\n", ToString(DefaultDateTimeWithTimezoneFormat, time.Now()), msg)
+}</span>
+
+// ToString to convert time to string
+func ToString(format DateFormat, value time.Time) string <span class="cov0" title="0">{
+        return value.Format(ParseToGoFormat(format))
+}</span>
+
+func printErr(msg string) <span class="cov0" title="0">{
+        fmt.Fprintf(os.Stderr, "[%s] %s\n", ToString(DefaultDateTimeWithTimezoneFormat, time.Now()), msg)
+}</span>
+
+func isLocal() bool <span class="cov0" title="0">{
+        return true
+}</span>
+
+func applyForeColor(txt string, clr Color) string <span class="cov0" title="0">{
+        if isLocal() </span><span class="cov0" title="0">{
+                return ApplyForeColor(txt, clr)
+        }</span>
+        <span class="cov0" title="0">return txt</span>
+}
+
+// Info to logging info level
+func Info(msg interface{}) <span class="cov0" title="0">{
+        m := fmt.Sprintf("%v", msg)
+        print(applyForeColor("INFO", LIGHT_BLUE) + ": " + m)
+}</span>
+
+// Infof to logging info level with function
+func Infof(msg string, args ...interface{}) <span class="cov0" title="0">{
+        Info(fmt.Sprintf(msg, args...))
+}</span>
+
+// Log to logging log level
+func Log(name string, msg interface{}) <span class="cov0" title="0">{
+        m := fmt.Sprintf("%v", msg)
+        print(applyForeColor(name, LIGHT_CYAN) + ": " + m)
+}</span>
+
+// Logf to logging log level with function
+func Logf(msg string, args ...interface{}) <span class="cov0" title="0">{
+        Log("", fmt.Sprintf(msg, args...))
+}</span>
+
+// Warn to logging warning level
+func Warn(msg interface{}) <span class="cov0" title="0">{
+        _, m2 := getMessage(msg)
+        print(applyForeColor("WARN", LIGHT_YELLOW) + ": " + m2)
+}</span>
+
+// Warnf to logging warning level with function
+func Warnf(msg string, args ...interface{}) <span class="cov0" title="0">{
+        Warn(fmt.Sprintf(msg, args...))
+}</span>
+
+// Err to logging error level
+func Err(msg interface{}) <span class="cov0" title="0">{
+        _, m2 := getMessage(msg)
+        printErr(applyForeColor(" ERR", RED) + ": " + m2)
+}</span>
+
+// Errf to logging error level with function
+func Errf(msg string, args ...interface{}) <span class="cov0" title="0">{
+        Err(fmt.Sprintf(msg, args...))
+}</span>
+
+func LogBase(in LogBaseStruct) interface{} <span class="cov0" title="0">{
+        getLogFunctionName, _ := json.Marshal(in.FunctionName)
+        getLogRequest, _ := json.Marshal(in.Request)
+        getLogResponse, _ := json.Marshal(in.Response)
+
+        Log("Function Name", string(getLogFunctionName))
+        Log("Request", string(getLogRequest))
+        Log("Response", string(getLogResponse))
+        return in
+}</span>
+
+func ErrorFormat(message string, err error) error <span class="cov0" title="0">{
+        return fmt.Errorf("[ asliri usecase error | %s ] %s", message, err.Error())
+}</span>
+</pre>
+		
+		<pre class="file" id="file14" style="display: none">package util
+
+import (
+        "regexp"
+        "strings"
+)
+
+type Pagination struct {
+        Limit int32
+        Page  int32
+        Field string
+        Sort  string
+}
+
+func GeneratePaginationFromRequest(limit int32, page int32, field string, sort string) Pagination <span class="cov0" title="0">{
+        isValidLetter := regexp.MustCompile(`^[a-zA-Z]+$`).MatchString
+
+        if !isValidLetter(field) </span><span class="cov0" title="0">{
+                field = "created_at"
+        }</span>
+
+        <span class="cov0" title="0">switch </span>{
+        case strings.ToLower(sort) == "asc":<span class="cov0" title="0">
+                sort = "ASC"</span>
+        case strings.ToLower(sort) == "desc":<span class="cov0" title="0">
+                sort = "DESC"</span>
+        default:<span class="cov0" title="0">
+                sort = "ASC"</span>
+        }
+
+        <span class="cov0" title="0">if limit == 0 || page == 0 </span><span class="cov0" title="0">{
+                limit = 2
+                page = 1
+        }</span>
+
+        <span class="cov0" title="0">return Pagination{
+                Limit: limit,
+                Page:  page,
+                Field: field,
+                Sort:  sort,
+        }</span>
+}
+</pre>
+		
+		<pre class="file" id="file15" style="display: none">package util
+
+import (
+        "fmt"
+
+        "golang.org/x/crypto/bcrypt"
+)
+
+// HashPassword returns the bcrypt hash of the password
+func HashPassword(password string) (string, error) <span class="cov8" title="1">{
+        hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+        if err != nil </span><span class="cov0" title="0">{
+                return "", fmt.Errorf("failed to hash password: %w", err)
+        }</span>
+        <span class="cov8" title="1">return string(hashedPassword), nil</span>
+}
+
+// CheckPassword checks if the provided password is correct or not
+func CheckPassword(password string, hashedPassword string) error <span class="cov0" title="0">{
+        return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+}</span>
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>
