@@ -1,0 +1,422 @@
+{
+	"info": {
+		"_postman_id": "d59d8f0c-a932-4965-8040-49bd0c74b739",
+		"name": "GRPC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11376391"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, /"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCIsImtpZCI6InRiSlZRQ1Y5VlhGRnI1SDdneFdLVnQ1TWh1Z3pwNUxzcGZkQVViUFJjUDl4WjRuODczQVB6SFZnQVpyU2pnUmUifQ.eyJwcm9maWxlIjp7ImlkIjozMzczOTU3LCJ1c2VybmFtZSI6ImltYW1fc3VkcmFqYXRfdXNlciIsImZ1bGxuYW1lIjoiSW1hbSBTdWRyYWphdCIsImVtYWlsIjoiaW1hbV9zdWRyYWphdEBwaW51c21lcmFoYWJhZGkuY28uaWQiLCJwaG9uZU51bWJlciI6IjA4MTIyMzAyNTUzMzkiLCJnZW5kZXIiOiJQcmlhIiwiZGF0ZU9mQmlydGgiOjAsInVwZGF0ZWRhdGUiOjAsInByb2ZpbGVQaWN0dXJlIjoiIiwic3RhdHVzIjoiIn0sInJvbGVzIjpbXSwianRpIjoiNnRRaldTZEE2S1A3ZTJoT1lfUVRVIiwic3ViIjoiaW1hbV9zdWRyYWphdEBwaW51c21lcmFoYWJhZGkuY28uaWQiLCJpYXQiOjE3MjE2MzU4ODcsImV4cCI6MTcyNDI2Mzg4Nywic2NvcGUiOiIiLCJjbGllbnRfaWQiOiJlcGMtbmFiYXRpc25hY2std2ViYXBwIiwiaXNzIjoiaHR0cHM6Ly9zc28uZWRvdC5pZCIsImF1ZCI6Imh0dHBzOi8vYWNjb3VudHMuZWRvdC5pZCJ9.jkUm_p-fMV4RCAotP3HgVkoA9YG5en62aKXO47z9Tj4UQLQJGN7VJYUEvidhL-4EOnV91hRfQ84jxm4Z-_BP8lagZvzL6nncT8NAppPQNcb2de9kmpQ2Riks6V9GLT2PFQs6VXPndxTuwsZYY9ZVcs37ZGBzIjRqFeXtksm4DhWVlYoTztY13W98EPis0JOPrqUklIAExz3TtOmyDyJQTjfw8CV5n9lwwHSXGV02cNk3JxRtiRV_I72NU4NYVFG9ZmYUOOXi9WZCK3XD2OmCXiEOM86g4ic908C011fVwDBMLy5gBgqZ8mDIIrtfe3NZA8PRw-X3_fTaluhrqe1XjQ"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://nabati-dev.epc.nabatisnack.co.id"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://nabati-dev.epc.nabatisnack.co.id/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "x-company-id",
+						"value": "PP01"
+					},
+					{
+						"key": "x-role-name",
+						"value": "PMA-SPV"
+					},
+					{
+						"key": "x-screen-code",
+						"value": "wrh.monitoring_list"
+					},
+					{
+						"key": "x-user-name",
+						"value": "Bejo"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Hedy\",\n    \"email\": \"hedy@gmail.com\",\n    \"password\": \"123456\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:6666/v1/create-user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6666",
+					"path": [
+						"v1",
+						"create-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, /"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCIsImtpZCI6InRiSlZRQ1Y5VlhGRnI1SDdneFdLVnQ1TWh1Z3pwNUxzcGZkQVViUFJjUDl4WjRuODczQVB6SFZnQVpyU2pnUmUifQ.eyJwcm9maWxlIjp7ImlkIjozMzczOTU3LCJ1c2VybmFtZSI6ImltYW1fc3VkcmFqYXRfdXNlciIsImZ1bGxuYW1lIjoiSW1hbSBTdWRyYWphdCIsImVtYWlsIjoiaW1hbV9zdWRyYWphdEBwaW51c21lcmFoYWJhZGkuY28uaWQiLCJwaG9uZU51bWJlciI6IjA4MTIyMzAyNTUzMzkiLCJnZW5kZXIiOiJQcmlhIiwiZGF0ZU9mQmlydGgiOjAsInVwZGF0ZWRhdGUiOjAsInByb2ZpbGVQaWN0dXJlIjoiIiwic3RhdHVzIjoiIn0sInJvbGVzIjpbXSwianRpIjoiNnRRaldTZEE2S1A3ZTJoT1lfUVRVIiwic3ViIjoiaW1hbV9zdWRyYWphdEBwaW51c21lcmFoYWJhZGkuY28uaWQiLCJpYXQiOjE3MjE2MzU4ODcsImV4cCI6MTcyNDI2Mzg4Nywic2NvcGUiOiIiLCJjbGllbnRfaWQiOiJlcGMtbmFiYXRpc25hY2std2ViYXBwIiwiaXNzIjoiaHR0cHM6Ly9zc28uZWRvdC5pZCIsImF1ZCI6Imh0dHBzOi8vYWNjb3VudHMuZWRvdC5pZCJ9.jkUm_p-fMV4RCAotP3HgVkoA9YG5en62aKXO47z9Tj4UQLQJGN7VJYUEvidhL-4EOnV91hRfQ84jxm4Z-_BP8lagZvzL6nncT8NAppPQNcb2de9kmpQ2Riks6V9GLT2PFQs6VXPndxTuwsZYY9ZVcs37ZGBzIjRqFeXtksm4DhWVlYoTztY13W98EPis0JOPrqUklIAExz3TtOmyDyJQTjfw8CV5n9lwwHSXGV02cNk3JxRtiRV_I72NU4NYVFG9ZmYUOOXi9WZCK3XD2OmCXiEOM86g4ic908C011fVwDBMLy5gBgqZ8mDIIrtfe3NZA8PRw-X3_fTaluhrqe1XjQ"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://nabati-dev.epc.nabatisnack.co.id"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://nabati-dev.epc.nabatisnack.co.id/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "x-company-id",
+						"value": "PP01"
+					},
+					{
+						"key": "x-role-name",
+						"value": "PMA-SPV"
+					},
+					{
+						"key": "x-screen-code",
+						"value": "wrh.monitoring_list"
+					},
+					{
+						"key": "x-user-name",
+						"value": "Bejo"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Hedy\",\n    \"email\": \"hedy@gmail.com\",\n    \"password\": \"123456\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:6666/v1/create-user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6666",
+					"path": [
+						"v1",
+						"create-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get List User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, /"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCIsImtpZCI6InRiSlZRQ1Y5VlhGRnI1SDdneFdLVnQ1TWh1Z3pwNUxzcGZkQVViUFJjUDl4WjRuODczQVB6SFZnQVpyU2pnUmUifQ.eyJwcm9maWxlIjp7ImlkIjozMzczOTU3LCJ1c2VybmFtZSI6ImltYW1fc3VkcmFqYXRfdXNlciIsImZ1bGxuYW1lIjoiSW1hbSBTdWRyYWphdCIsImVtYWlsIjoiaW1hbV9zdWRyYWphdEBwaW51c21lcmFoYWJhZGkuY28uaWQiLCJwaG9uZU51bWJlciI6IjA4MTIyMzAyNTUzMzkiLCJnZW5kZXIiOiJQcmlhIiwiZGF0ZU9mQmlydGgiOjAsInVwZGF0ZWRhdGUiOjAsInByb2ZpbGVQaWN0dXJlIjoiIiwic3RhdHVzIjoiIn0sInJvbGVzIjpbXSwianRpIjoiNnRRaldTZEE2S1A3ZTJoT1lfUVRVIiwic3ViIjoiaW1hbV9zdWRyYWphdEBwaW51c21lcmFoYWJhZGkuY28uaWQiLCJpYXQiOjE3MjE2MzU4ODcsImV4cCI6MTcyNDI2Mzg4Nywic2NvcGUiOiIiLCJjbGllbnRfaWQiOiJlcGMtbmFiYXRpc25hY2std2ViYXBwIiwiaXNzIjoiaHR0cHM6Ly9zc28uZWRvdC5pZCIsImF1ZCI6Imh0dHBzOi8vYWNjb3VudHMuZWRvdC5pZCJ9.jkUm_p-fMV4RCAotP3HgVkoA9YG5en62aKXO47z9Tj4UQLQJGN7VJYUEvidhL-4EOnV91hRfQ84jxm4Z-_BP8lagZvzL6nncT8NAppPQNcb2de9kmpQ2Riks6V9GLT2PFQs6VXPndxTuwsZYY9ZVcs37ZGBzIjRqFeXtksm4DhWVlYoTztY13W98EPis0JOPrqUklIAExz3TtOmyDyJQTjfw8CV5n9lwwHSXGV02cNk3JxRtiRV_I72NU4NYVFG9ZmYUOOXi9WZCK3XD2OmCXiEOM86g4ic908C011fVwDBMLy5gBgqZ8mDIIrtfe3NZA8PRw-X3_fTaluhrqe1XjQ"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://nabati-dev.epc.nabatisnack.co.id"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://nabati-dev.epc.nabatisnack.co.id/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "x-company-id",
+						"value": "PP01"
+					},
+					{
+						"key": "x-role-name",
+						"value": "PMA-SPV"
+					},
+					{
+						"key": "x-screen-code",
+						"value": "wrh.monitoring_list"
+					},
+					{
+						"key": "x-user-name",
+						"value": "Bejo"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\" : {\n        \"page\": 1,\n        \"limit\": 5,\n        \"sort\": \"asc\",\n        \"field\": \"email\"\n    },\n    \"where\" : {\n        \"filter\": {\n            \"name\": \"ayu\",\n            \"email\": \"\"\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:6666/v1/get-list-user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6666",
+					"path": [
+						"v1",
+						"get-list-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, /"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCIsImtpZCI6InRiSlZRQ1Y5VlhGRnI1SDdneFdLVnQ1TWh1Z3pwNUxzcGZkQVViUFJjUDl4WjRuODczQVB6SFZnQVpyU2pnUmUifQ.eyJwcm9maWxlIjp7ImlkIjozMzczOTU3LCJ1c2VybmFtZSI6ImltYW1fc3VkcmFqYXRfdXNlciIsImZ1bGxuYW1lIjoiSW1hbSBTdWRyYWphdCIsImVtYWlsIjoiaW1hbV9zdWRyYWphdEBwaW51c21lcmFoYWJhZGkuY28uaWQiLCJwaG9uZU51bWJlciI6IjA4MTIyMzAyNTUzMzkiLCJnZW5kZXIiOiJQcmlhIiwiZGF0ZU9mQmlydGgiOjAsInVwZGF0ZWRhdGUiOjAsInByb2ZpbGVQaWN0dXJlIjoiIiwic3RhdHVzIjoiIn0sInJvbGVzIjpbXSwianRpIjoiNnRRaldTZEE2S1A3ZTJoT1lfUVRVIiwic3ViIjoiaW1hbV9zdWRyYWphdEBwaW51c21lcmFoYWJhZGkuY28uaWQiLCJpYXQiOjE3MjE2MzU4ODcsImV4cCI6MTcyNDI2Mzg4Nywic2NvcGUiOiIiLCJjbGllbnRfaWQiOiJlcGMtbmFiYXRpc25hY2std2ViYXBwIiwiaXNzIjoiaHR0cHM6Ly9zc28uZWRvdC5pZCIsImF1ZCI6Imh0dHBzOi8vYWNjb3VudHMuZWRvdC5pZCJ9.jkUm_p-fMV4RCAotP3HgVkoA9YG5en62aKXO47z9Tj4UQLQJGN7VJYUEvidhL-4EOnV91hRfQ84jxm4Z-_BP8lagZvzL6nncT8NAppPQNcb2de9kmpQ2Riks6V9GLT2PFQs6VXPndxTuwsZYY9ZVcs37ZGBzIjRqFeXtksm4DhWVlYoTztY13W98EPis0JOPrqUklIAExz3TtOmyDyJQTjfw8CV5n9lwwHSXGV02cNk3JxRtiRV_I72NU4NYVFG9ZmYUOOXi9WZCK3XD2OmCXiEOM86g4ic908C011fVwDBMLy5gBgqZ8mDIIrtfe3NZA8PRw-X3_fTaluhrqe1XjQ"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://nabati-dev.epc.nabatisnack.co.id"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://nabati-dev.epc.nabatisnack.co.id/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "x-company-id",
+						"value": "PP01"
+					},
+					{
+						"key": "x-role-name",
+						"value": "PMA-SPV"
+					},
+					{
+						"key": "x-screen-code",
+						"value": "wrh.monitoring_list"
+					},
+					{
+						"key": "x-user-name",
+						"value": "Bejo"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\" : {\n        \"page\": 1,\n        \"limit\": 5,\n        \"sort\": \"asc\",\n        \"field\": \"email\"\n    },\n    \"where\" : {\n        \"filter\": {\n            \"name\": \"ayu\",\n            \"email\": \"\"\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:6666/v1/delete-user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "6666",
+					"path": [
+						"v1",
+						"delete-user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
