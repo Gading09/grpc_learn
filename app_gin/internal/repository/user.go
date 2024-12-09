@@ -3,9 +3,9 @@ package repository
 import (
 	"context"
 	"fmt"
-	"grpc/pkg/database"
-	"grpc/pkg/model"
-	"grpc/pkg/util"
+	"gin/pkg/database"
+	"gin/pkg/model"
+	"gin/pkg/util"
 
 	"github.com/jackc/pgx/v4/pgxpool"
 )
@@ -17,9 +17,6 @@ type UserRepository interface {
 	UpdateUser(ctx context.Context, user model.User) (err error)
 }
 
-//	type userRepository struct {
-//		db *gorm.DB
-//	}
 type userRepository struct {
 	db *pgxpool.Pool
 }
@@ -29,78 +26,6 @@ func NewUserRepository() *userRepository {
 		db: database.DbPool,
 	}
 }
-
-// func (r userRepository) InsertUser(ctx context.Context, user model.User) (err error) {
-// 	return r.db.Where(model.User{Email: user.Email}).Assign(model.User{
-// 		Id:        user.Id,
-// 		Email:     user.Email,
-// 		Password:  user.Password,
-// 		Name:      user.Name,
-// 		CreatedAt: user.CreatedAt,
-// 		UpdatedAt: user.UpdatedAt,
-// 	}).FirstOrCreate(&model.User{}).Error
-// }
-
-// func (r userRepository) GetListUser(ctx context.Context, pagination util.Pagination, where map[string]string) (result []model.User, count int64, err error) {
-// 	var field, sort string
-
-// 	queryBuilder := r.db.Table("users").
-// 		Select("id, email, name").
-// 		Where("deleted_at isnull")
-
-// 	if where["name"] != "" {
-// 		name := fmt.Sprintf("%%%s%%", where["name"])
-// 		queryBuilder = queryBuilder.Where("name ILIKE ?", name)
-// 	}
-
-// 	if where["email"] != "" {
-// 		name := fmt.Sprintf("%%%s%%", where["email"])
-// 		queryBuilder = queryBuilder.Where("email ILIKE ?", name)
-// 	}
-
-// 	if pagination.Field != "" {
-// 		if pagination.Field == "name" {
-// 			field = "name"
-// 		} else if pagination.Field == "email" {
-// 			field = "email"
-// 		} else {
-// 			field = "created_at"
-// 		}
-// 	} else {
-// 		field = "created_at"
-// 	}
-
-// 	if pagination.Sort != "" {
-// 		sort = pagination.Sort
-// 	} else {
-// 		sort = "DESC"
-// 	}
-
-// 	offset := (pagination.Page - 1) * pagination.Limit
-// 	orderBy := fmt.Sprintf("%s %s", field, sort)
-// 	limitBuilder := queryBuilder.Limit(int(pagination.Limit)).Offset(int(offset)).Order(orderBy)
-
-// 	err = limitBuilder.Find(&result).Error
-// 	if err != nil {
-// 		return nil, count, err
-// 	}
-
-// 	err = queryBuilder.Count(&count).Error
-// 	if err != nil {
-// 		return nil, count, err
-// 	}
-
-// 	return
-// }
-
-// func (r userRepository) UpdateUser(ctx context.Context, user model.User) (err error) {
-// 	return r.db.Save(&user).Error
-// }
-
-// func (r userRepository) GetUserById(ctx context.Context, id string) (result model.User, err error) {
-// 	err = r.db.Where(model.User{Id: id}).First(&result).Error
-// 	return
-// }
 
 func (r *userRepository) InsertUser(ctx context.Context, user model.User) error {
 	query := `
@@ -119,7 +44,6 @@ func (r *userRepository) InsertUser(ctx context.Context, user model.User) error 
 
 	_, err := r.db.Exec(ctx, query, user.Id, user.Email, user.Password, user.Name, user.CreatedAt, user.UpdatedAt)
 	if err != nil {
-		fmt.Println(err.Error())
 		return err
 	}
 
@@ -173,12 +97,13 @@ func (r *userRepository) UpdateUser(ctx context.Context, user model.User) (err e
 			email = $1,
 			password = $2,
 			name = $3,
-			updated_at = $4
+			updated_at = $4,
+			deleted_at = $5
 		WHERE 
-			id = $5
+			id = $6
 	`
 
-	_, err = r.db.Exec(ctx, query, user.Email, user.Password, user.Name, user.UpdatedAt, user.Id)
+	_, err = r.db.Exec(ctx, query, user.Email, user.Password, user.Name, user.UpdatedAt, user.DeletedAt, user.Id)
 	if err != nil {
 		return err
 	}

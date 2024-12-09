@@ -26,8 +26,6 @@ import (
 	"grpc/pkg/logger"
 	"grpc/pkg/model"
 
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/rs/cors"
 	"go.elastic.co/apm/module/apmgrpc/v2"
@@ -87,16 +85,7 @@ func NewGrpcServer() error {
 	// USECASE
 	userUseCase := usecase.NewUserService().SetUserRepository(userRepository)
 
-	s := grpc.NewServer(grpc.MaxMsgSize(constant.MAX_SIZE_GRPC), grpc.MaxRecvMsgSize(constant.MAX_SIZE_GRPC), grpc.MaxSendMsgSize(constant.MAX_SIZE_GRPC),
-		grpc_middleware.WithUnaryServerChain(
-			grpc_ctxtags.UnaryServerInterceptor(grpc_ctxtags.WithFieldExtractor(grpc_ctxtags.CodeGenRequestFieldExtractor)),
-		),
-		grpc_middleware.WithStreamServerChain(
-			grpc_ctxtags.StreamServerInterceptor(grpc_ctxtags.WithFieldExtractor(grpc_ctxtags.CodeGenRequestFieldExtractor)),
-		),
-		grpc.UnaryInterceptor(apmgrpc.NewUnaryServerInterceptor(apmgrpc.WithRecovery())),
-		grpc.StreamInterceptor(apmgrpc.NewStreamServerInterceptor()),
-	)
+	s := grpc.NewServer()
 
 	handler := domain.CreateHandler(s, userUseCase)
 
@@ -177,7 +166,6 @@ func NewHttpServer() error {
 				http.Error(w, "can't read body", http.StatusBadRequest)
 				return
 			}
-			// fmt.Println("request : ", bodyString)
 
 			request.Body = io.NopCloser(strings.NewReader(bodyString))
 		}
