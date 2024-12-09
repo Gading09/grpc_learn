@@ -38,7 +38,8 @@ import (
 
 func Init() {
 	ctx := context.Background()
-	_, err := database.InitGorm(ctx)
+	// _, err := database.InitGorm(ctx)
+	_, err := database.InitDB(ctx)
 	if err != nil {
 		panic(err)
 	}
